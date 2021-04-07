@@ -1,0 +1,27 @@
+{
+    "name": "foxhyn",
+    "version": "1.0.0",
+    "description": "Application for Agility and Dog training evidence",
+    "main": "index.js",
+    "dependencies": {
+        "@supercharge/request-ip": "^1.1.2",
+        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^8.2.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.7",
+        "serve-favicon": "^2.5.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "author": "Josef Bouše",
+    "license": "ISC"
+}

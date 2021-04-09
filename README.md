@@ -8,5 +8,5 @@ Plánování a dělení velkých cílů na menší cíle
 Úkoly
 
 
-
+.
 Josef Bouše

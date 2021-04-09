@@ -54,7 +54,7 @@ exports.login = async(req, res) => {
 
         db.query('SELECT * FROM users WHERE email = ?', [email], async(error, results) => {
             console.log(results);
-            if (!results || !(await bcrypt.compare(password, results[0].passw))) {
+            if (!results || results[0] == null || !(await bcrypt.compare(password, results[0].passw))) {
                 return res.status(401).render('auth/login', {
                     error: "Email nebo heslo nesouhlasí"
                 });

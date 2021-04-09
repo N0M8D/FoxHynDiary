@@ -11,6 +11,7 @@ var db = require('./database');
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var pessosRouter = require('./routes/pessos');
+var adminRouter = require('./routes/admin');
 //var denikRouter = require('./routes/denik');
 
 dotenv.config({
@@ -19,7 +20,6 @@ dotenv.config({
 
 //start app
 const app = express();
-
 
 
 const publicDirectory = path.join(__dirname + '/public');
@@ -41,6 +41,7 @@ app.set('view engine', 'ejs');
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/pessos', pessosRouter);
+app.use('/admin', adminRouter);
 //app.use('/pessos/denik', denikRouter);
 
 

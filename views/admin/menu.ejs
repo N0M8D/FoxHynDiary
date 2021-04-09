@@ -64,33 +64,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="1">
-                        <th scope="row">1</th>
-                        <td class="row-data">Josef Bouše</td>
-                        <td class="row-data">pessos@josefbouse.cz</td>
-                        <td class="row-data">Narysov 4, Narysov, 26101</td>
-                        <td class="row-data">775180566</td>
-                        <td class="row-data">user</td>
-                        <td class="row-data">1.1.2021</td>
-                    </tr>
-                    <tr id="2">
-                        <th scope="row">2</th>
-                        <td class="row-data">Tester Test</td>
-                        <td class="row-data">email</td>
-                        <td class="row-data">Adresa</td>
-                        <td class="row-data">64654</td>
-                        <td class="row-data">user</td>
-                        <td class="row-data">1.1.2021</td>
-                    </tr>
-                    <tr id="3">
-                        <th scope="row">3</th>
-                        <td class="row-data">Allah Abdul</td>
-                        <td class="row-data">Email.pakista.ue</td>
-                        <td class="row-data">Nekde</td>
-                        <td class="row-data">132456789</td>
-                        <td class="row-data">user</td>
-                        <td class="row-data">1.1.2021</td>
-                    </tr>
+                    <%
+                        if(uzivatele.length !=0){
+                            var i = 1;
+                        uzivatele.forEach(function(data){ if (data != "") {
+                        %>
+                        <tr id="<%=data.id %>">
+                            <th scope="row">
+                                <%=i %>
+                            </th>
+                            <td class="row-data">
+                                <%=data.name %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.email %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.adress %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.tel %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.role %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.registered %>
+                            </td>
+                        </tr>
+                        <% i++;}})} %>
                 </tbody>
             </table>
 

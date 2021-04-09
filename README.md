@@ -1,7 +1,12 @@
 # FoxHynDiary
-Deník pro spolek PESSOS, záznamy, agility a cvičení se psem
+Deník pro spolek PESSOS, záznamy, agility a cvičení se psi.
 
-THERE WILL ME SOME TEXT ...
+Očekáváné funkce:
+Denní a týdenní (zdravotní) záznamy psů
+Profil, možnost spravovat více svých psů
+Plánování a dělení velkých cílů na menší cíle
+Úkoly
 
 
-josef Bouše
+
+Josef Bouše

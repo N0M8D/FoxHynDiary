@@ -1,5 +1,4 @@
 const db = require("../database");
-const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const RequestIp = require('@supercharge/request-ip')

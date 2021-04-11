@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../database");
-const jwt = require("jsonwebtoken");
 const authController = require('../controllers/auth');
 
 /* GET home page. */

@@ -65,7 +65,7 @@
                 </thead>
                 <tbody>
                     <%
-                        if(uzivatele.length !=0){
+                        if(uzivatele.length != 0 && typeof uzivatele != "undefined"){
                             var i = 1;
                         uzivatele.forEach(function(data){ if (data != "") {
                         %>
@@ -83,102 +83,115 @@
                                 <%=data.adress %>
                             </td>
                             <td class="row-data">
-                                <%=data.tel %>
+                                <%=data.telefon %>
                             </td>
                             <td class="row-data">
-                                <%=data.role %>
+                                <%=data.permissions %>
                             </td>
                             <td class="row-data">
                                 <%=data.registered %>
                             </td>
                         </tr>
-                        <% i++;}})} %>
+                        <% i++;}})} else {  %>
+                            <td colspan="7" class="row-data">
+                                "NO DATA"
+                            </td>
+                            <% } %>
                 </tbody>
             </table>
 
-            <div>
+            <form action="/admin/saveOrCreate" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Email @</span>
-                    <input type="text " value="" id="email" class="form-control" placeholder="Email">
+                    <input type="text " value="" name="email" id="email" class="form-control" placeholder="Email">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">Jméno a příjmení</span>
-                    <input type="text " value="" id="name" class="form-control" placeholder="jméno a příjmení">
+                    <input type="text " value="" id="name" name="name" class="form-control" placeholder="jméno a příjmení">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon3">Adresa</span>
-                    <input type="text " class="form-control" id="adress">
+                    <input type="text " name="adress" class="form-control" id="adress">
                     <span class="input-group-text">Telefon:</span>
-                    <input type="text " id="tel" class="form-control">
+                    <input type="text " id="tel" name="tel" class="form-control">
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">Role</span>
-                    <input type="text " id="role" class="form-control">
+                    <input type="text " id="permissions" name="permissions" class="form-control">
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Smečka uživatele:</h4>
-                        <table class="table table-sm table-bordered table-hover" onclick="selectPes()">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Jméno</th>
-                                    <th scope="col">Rasa</th>
-                                    <th scope="col">Věk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="pes-1">
-                                    <th scope="row">1</th>
-                                    <td class="row-data">Pes</td>
-                                    <td class="row-data">Dalmatýn</td>
-                                    <td class="row-data">5</td>
-                                </tr>
-                                <tr id="pes-2">
-                                    <th scope="row">2</th>
-                                    <td class="row-data">Kočka</td>
-                                    <td class="row-data">Vlčák</td>
-                                    <td class="row-data">2</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Data o psovi:</h4>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Jméno</span>
-                            <input id="pname" type="text " class="form-control" placeholder="Jméno psa">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Rasa</span>
-                            <input id="prasa" type="text " class="form-control" placeholder="Rasa psa">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Věk</span>
-                            <input id="pvek" type="text " class="form-control" placeholder="Věk psa">
-                            <span class="input-group-text">let</span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary mb-5" type="button">Zalžit/Uožit uživatele</button>
+                    <button class="btn btn-primary mb-5" type="submit">Zalžit/Uožit uživatele</button>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Smečka uživatele:</h4>
+                    <table class="table table-sm table-bordered table-hover" onclick="selectPes()">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Jméno</th>
+                                <th scope="col">Rasa</th>
+                                <th scope="col">Věk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pes-1">
+                                <th scope="row">1</th>
+                                <td class="row-data">Pes</td>
+                                <td class="row-data">Dalmatýn</td>
+                                <td class="row-data">5</td>
+                            </tr>
+                            <tr id="pes-2">
+                                <th scope="row">2</th>
+                                <td class="row-data">Kočka</td>
+                                <td class="row-data">Vlčák</td>
+                                <td class="row-data">2</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h4>Data o psovi:</h4>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Jméno</span>
+                        <input id="pname" type="text " class="form-control" placeholder="Jméno psa">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Rasa</span>
+                        <input id="prasa" type="text " class="form-control" placeholder="Rasa psa">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Věk</span>
+                        <input id="pvek" type="text " class="form-control" placeholder="Věk psa">
+                        <span class="input-group-text">let</span>
+                    </div>
                 </div>
             </div>
 
-
-        </div>
+            <div style="text-align: center; padding-left: 25%;padding-right: 25%;">
+                <%if(typeof error == "undefined"){%>
+                    <% } else if (error == 'TEST'){ %>
+                        <h4 class="alert alert-success mt-4">
+                            <%= error%>
+                        </h4>
+                        <%} else {%>
+                            <h4 class="alert alert-danger mt-4">
+                                <%= error%>
+                            </h4>
+                            <%}%>
+            </div>
 
     </main>
     <!-- Main part -->
-    s
+
     <!-- Footer -->
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
         <!-- Grid container -->
@@ -201,9 +214,9 @@
             var prasa = data[1].innerHTML;
             var pvek = data[2].innerHTML;
 
-            document.getElementById('pname').value = pname;
-            document.getElementById('prasa').value = prasa;
-            document.getElementById('pvek').value = pvek;
+            document.getElementById('pname').value = pname.trim();
+            document.getElementById('prasa').value = prasa.trim();
+            document.getElementById('pvek').value = pvek.trim();
 
         };
 
@@ -219,12 +232,11 @@
             var adress = data[2].innerHTML;
             var tel = data[3].innerHTML;
             var role = data[4].innerHTML;
-            console.log(name + " " + email + " " + role);
-            document.getElementById('name').value = name;
-            document.getElementById('email').value = email;
-            document.getElementById('adress').value = adress;
-            document.getElementById('tel').value = tel;
-            document.getElementById('role').value = role;
+            document.getElementById('name').value = name.trim();
+            document.getElementById('email').value = email.trim();
+            document.getElementById('adress').value = adress.trim();
+            document.getElementById('tel').value = tel.trim();
+            document.getElementById('role').value = role.trim();
         };
     </script>
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

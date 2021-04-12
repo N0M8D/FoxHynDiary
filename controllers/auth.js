@@ -1,7 +1,8 @@
 const db = require("../database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const RequestIp = require('@supercharge/request-ip')
+const RequestIp = require('@supercharge/request-ip');
+const mySqlSelect = require('../mysql/select');
 
 
 exports.checkToken = (req, res, next) => {
@@ -38,6 +39,34 @@ exports.logout = async(req, res) => {
         return res.redirect('auth/login');
     } catch (error) {
         res.status(401).send(error);
+    }
+}
+
+
+exports.changePassword = async(req, res, next) => {
+    const { pid, password, passwordConfirm } = req.body;
+
+
+
+    if (password == passwordConfirm && password != "") {
+        let passw = await bcrypt.hash(password, 8);
+        let id = pid;
+        db.query('UPDATE users SET passw = ? WHERE id = ? ', [passw, id], (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Heslo změněno.');
+                mySqlSelect.fromUsers(function(result) {
+                    res.render('admin/menu', { uzivatele: result, error: "Heslo změněno!" });
+
+                })
+
+            }
+
+        });
+    } else {
+        console.log('Error');
+        return res.render('admin/menu', { error: "ERROR" });
     }
 }
 
@@ -81,6 +110,8 @@ exports.login = async(req, res) => {
         console.log(error);
     }
 }
+
+
 
 
 

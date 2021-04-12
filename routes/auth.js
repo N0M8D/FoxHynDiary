@@ -17,6 +17,7 @@ router.get('/createuser', function(req, res) {
     res.render('auth/createuser');
 });
 
+router.post('/changePassword', authController.changePassword);
 
 router.post('/login', authController.login);
 

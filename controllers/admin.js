@@ -18,7 +18,7 @@ exports.saveOrCreate = async(req, res) => {
     //console.log(req.body);
     mySqlInsert.intoUsers(req, function(result) {
         return res.render('admin/menu', {
-            error: "TEST",
+            error: "Data uložena !",
             uzivatele: result
         });
     });

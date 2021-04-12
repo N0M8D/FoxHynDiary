@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const authController = require('../controllers/auth');
+const adminController = require('../controllers/admin');
 
 /* GET home page. */
-router.get('/menu', authController.checkToken, function(req, res, next) {
-    res.render('admin/menu');
 
-});
+router.use('/menu', adminController.loadMenu);
+
+router.post('/saveOrCreate', adminController.saveOrCreate);
+/*
+router.post('/saveOrCreate', function(req, res) {
+    console.log(req.body);
+})
+*/
 
 module.exports = router;

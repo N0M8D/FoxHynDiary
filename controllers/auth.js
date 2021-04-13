@@ -46,8 +46,6 @@ exports.logout = async(req, res) => {
 exports.changePassword = async(req, res, next) => {
     const { pid, password, passwordConfirm } = req.body;
 
-
-
     if (password == passwordConfirm && password != "") {
         let passw = await bcrypt.hash(password, 8);
         let id = pid;
@@ -56,17 +54,16 @@ exports.changePassword = async(req, res, next) => {
                 console.log(error);
             } else {
                 console.log('Heslo změněno.');
-                mySqlSelect.fromUsers(function(result) {
-                    res.render('admin/menu', { uzivatele: result, error: "Heslo změněno!" });
-
-                })
+                req.flash('message', 'Heslo uživatele úspěšně změněno.');
+                return res.redirect('menu')
 
             }
 
         });
     } else {
         console.log('Error');
-        return res.render('admin/menu', { error: "ERROR" });
+        req.flash('error', 'Chyba změny hesla');
+        return res.redirect('menu')
     }
 }
 
@@ -115,51 +112,41 @@ exports.login = async(req, res) => {
 
 
 
-exports.createuser = (req, res) => {
+exports.createuser = async function(req, next) {
     console.log(req.body);
 
-    const { name, email, password, passwordConfirm, adress, tel } = req.body;
+    console.log('Zakládám uživatele ..')
+    const { name, email, password, permissions, passwordConfirm, adress, tel } = req.body;
 
-    db.query('SELECT email FROM users WHERE email = ?', [email], async(error, results) => {
-        if (error) {
-            console.log(error);
-        }
+    if (password == passwordConfirm && password != "") {
 
-        if (results.length > 0) {
-            console.log('email exists');
-            return res.render('auth/createuser', {
-                message: "Email je již použit"
-            });
-        } else if (password !== passwordConfirm) {
-            console.log('wrong pass');
-            return res.render('auth/createuser', {
-                message: "Hesla se neshodují"
-            });
-
-        }
-
-
-        let hashedPassword = await bcrypt.hash(password, 8);
-        console.log(hashedPassword);
+        let passw = await bcrypt.hash(password, 8);
+        console.log(passw);
 
         db.query('INSERT INTO users SET ? ', {
-            name: name,
-            passw: hashedPassword,
-            email: email,
-            adress: adress,
+            name,
+            passw,
+            email,
+            adress,
             telefon: tel,
-            permissions: 'user',
-            registered: 'NOW()'
+            permissions,
+            registered: new Date()
 
         }, (error, results) => {
             if (error) {
                 console.log(error);
+                req.flash('error', 'Chyba při zakládání uživatele');
+                return res.redirect('menu')
             } else {
-                return res.render('auth/createuser', { message: "user registered", logedin: true });
+                next;
+                //return res.render('auth/createuser', { message: "user registered", logedin: true });
             }
 
-        });
-    });
-
+        })
+    } else {
+        console.log('ERROR');
+        req.flash('error', 'Hesla se neshodují nebo nejsou zadanná');
+        return res.redirect('menu')
+    }
     //res.send("Form submitted");
-};
+}

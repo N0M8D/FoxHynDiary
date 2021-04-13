@@ -1,10 +1,13 @@
 // required packages
 const express = require('express');
 const cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
 var bodyParser = require('body-parser')
 const dotenv = require('dotenv');
 var favicon = require('serve-favicon');
 var path = require('path');
+const session = require('express-session');
+//const flash = require('flash');
 
 // required routes .. 
 var db = require('./database');
@@ -31,6 +34,18 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(session({
+    secret: 'dahfabafbhbjfasfjfjbfabfasf',
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+
+
+
+
 
 //setup the engine for views
 app.set('view engine', 'ejs');

@@ -2,7 +2,7 @@ const db = require("../database");
 
 
 
-exports.intoUsers = function(req, callback) {
+exports.intoUsers = function(req, callback, next) {
 
     console.log("INSERTING DATA:.");
     const { name, email, adress, tel, permissions } = req.body;
@@ -18,7 +18,7 @@ exports.intoUsers = function(req, callback) {
         if (error) {
             console.log(error);
         } else {
-            callback(results);
+            next
         }
     });
 }

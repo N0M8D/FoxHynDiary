@@ -11,19 +11,19 @@ router.get('/', function(req, res) {
 router.get('/login', function(req, res) {
     res.render('auth/login');
 });
-
+/*
 router.get('/createuser', function(req, res) {
     console.log('show create-user page');
     res.render('auth/createuser');
 });
-
+*/
 router.post('/changePassword', authController.changePassword);
 
 router.post('/login', authController.login);
 
 router.use('/logout', authController.checkToken, authController.logout);
 
-router.post('/createuser', authController.createuser);
+//router.post('/createuser', authController.createuser);
 
 
 

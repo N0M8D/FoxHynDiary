@@ -50,19 +50,19 @@
         <div class="container">
             <h1 class="mt-5">Administátorské menu</h1>
             <p class="lead">HAHA.</p>
-        </div>
 
-        <div style="text-align: center; padding-left: 25%;padding-right: 25%;">
-            <%if(typeof error == "undefined"){%>
-                <% } else if (error == 'Heslo změněno!'){ %>
-                    <h4 class="alert alert-success mt-4">
-                        <%= error%>
-                    </h4>
-                    <%} else {%>
-                        <h4 class="alert alert-danger mt-4">
-                            <%= error%>
-                        </h4>
-                        <%}%>
+            <%  if(message.length > 0) { %>
+                <div class="alert alert-success" style="text-align: center;">
+                    <%= message %>
+                </div>
+                <% } %>
+
+                    <%  if(error.length > 0) { %>
+                        <div class="alert alert-danger" style="text-align: center;">
+                            <%= message %>
+                        </div>
+                        <% } %>
+
         </div>
 
         <div class="flex-shrink-0 mt-5 container">
@@ -180,7 +180,7 @@
             <form action="/admin/saveOrCreate" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Email @</span>
-                    <input type="text " value="" name="email" id="email" class="form-control" placeholder="Email">
+                    <input type="text " value="" name="email" id="email" class="form-control" placeholder="Email" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -197,8 +197,18 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">Role</span>
-                    <input type="text " id="permissions" name="permissions" class="form-control">
+                    <input type="text " id="permissions" name="permissions" class="form-control" required>
                 </div>
+
+                <p>Pouze v případě zakládání nového uživatele</p>
+                <div class="input-group mb-3 input-group-sm">
+
+                    <span class="input-group-text">Heslo:</span>
+                    <input type="password" id="password" name="password" class="form-control">
+                    <span class="input-group-text">Heslo znovu:</span>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control">
+                </div>
+
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary mb-5" type="submit">Zalžit/Uožit uživatele</button>
                 </div>
@@ -302,7 +312,7 @@
             document.getElementById('email').value = email.trim();
             document.getElementById('adress').value = adress.trim();
             document.getElementById('tel').value = tel.trim();
-            document.getElementById('role').value = role.trim();
+            document.getElementById('permissions').value = role.trim();
         };
     </script>
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

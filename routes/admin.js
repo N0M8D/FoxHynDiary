@@ -5,7 +5,7 @@ const adminController = require('../controllers/admin');
 
 /* GET home page. */
 
-router.use('/menu', adminController.loadMenu);
+router.use('/menu', authController.checkToken, adminController.loadMenu);
 
 router.post('/saveOrCreate', adminController.saveOrCreate);
 /*

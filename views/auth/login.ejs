@@ -65,7 +65,25 @@
                     </h4>
                     <%}%>
     </div>
+    <div>
+        <%  if(message.length > 0) { %>
+            <div class="alert alert-success" style="text-align: center;">
+                <%= message %>
+            </div>
+            <% } %>
 
+                <%  if(error.length > 0) { %>
+                    <div class="alert alert-danger" style="text-align: center;">
+                        <%= message %>
+                    </div>
+                    <% } %>
+
+                        <%  if(info.length > 0) { %>
+                            <div class="alert alert-info" style="text-align: center;">
+                                <%= message %>
+                            </div>
+                            <% } %>
+    </div>
     <!-- Footer -->
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
         <!-- Grid container -->

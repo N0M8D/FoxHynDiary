@@ -37,6 +37,32 @@
         </ul>
     </nav>
 
+    <div class="p-5">
+        <%  if(message.length > 0) { %>
+            <div class="alert alert-success" style="text-align: center;">
+                <h4>
+                    <%= message %>
+                </h4>
+            </div>
+            <% } %>
+
+                <%  if(error.length > 0) { %>
+                    <div class="alert alert-danger" style="text-align: center;">
+                        <h4>
+                            <%= error %>
+                        </h4>
+                    </div>
+                    <% } %>
+
+                        <%  if(info.length > 0) { %>
+                            <div class="alert alert-info" style="text-align: center;">
+                                <h4>
+                                    <%= info %>
+                                </h4>
+                            </div>
+                            <% } %>
+    </div>
+
     <div class="MainDiv">
         <form action="/auth/login" method="post">
             <div>
@@ -52,37 +78,6 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div style="text-align: center; padding-left: 25%;padding-right: 25%;">
-        <%if(typeof error == "undefined"){%>
-            <% } else if (error == "user registered"){ %>
-                <h4 class="alert alert-success mt-4">
-                    <%= error%>
-                </h4>
-                <%} else {%>
-                    <h4 class="alert alert-danger mt-4">
-                        <%= error%>
-                    </h4>
-                    <%}%>
-    </div>
-    <div>
-        <%  if(message.length > 0) { %>
-            <div class="alert alert-success" style="text-align: center;">
-                <%= message %>
-            </div>
-            <% } %>
-
-                <%  if(error.length > 0) { %>
-                    <div class="alert alert-danger" style="text-align: center;">
-                        <%= message %>
-                    </div>
-                    <% } %>
-
-                        <%  if(info.length > 0) { %>
-                            <div class="alert alert-info" style="text-align: center;">
-                                <%= message %>
-                            </div>
-                            <% } %>
     </div>
     <!-- Footer -->
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">

@@ -50,6 +50,32 @@
         </ul>
     </nav>
 
+    <div class="p-5">
+        <%  if(message.length > 0) { %>
+            <div class="alert alert-success" style="text-align: center;">
+                <h4>
+                    <%= message %>
+                </h4>
+            </div>
+            <% } %>
+
+                <%  if(error.length > 0) { %>
+                    <div class="alert alert-danger" style="text-align: center;">
+                        <h4>
+                            <%= error %>
+                        </h4>
+                    </div>
+                    <% } %>
+
+                        <%  if(info.length > 0) { %>
+                            <div class="alert alert-info" style="text-align: center;">
+                                <h4>
+                                    <%= info %>
+                                </h4>
+                            </div>
+                            <% } %>
+    </div>
+
     <div class="UniPage-div">
         <form action="">
 

@@ -4,6 +4,13 @@ const bcrypt = require("bcryptjs");
 const RequestIp = require('@supercharge/request-ip');
 const mySqlSelect = require('../mysql/select');
 
+/*
+
+  req.flash('message', 'Uživatel založen');
+                return res.redirect('menu')
+
+
+*/
 
 exports.checkToken = (req, res, next) => {
     const ip = RequestIp.getClientIp(req)
@@ -13,11 +20,10 @@ exports.checkToken = (req, res, next) => {
     const authcookie = req.cookies.jwt
     jwt.verify(authcookie, process.env.JWT_SECRET, (err, data) => {
         if (err) {
-            return res.status(403).render('auth/login', {
-                error: "K přístupu k této stránce je nutné být přihlášen.."
-            })
-        } else if (data.id) {
-            req.id = data.id
+            req.flash('error', 'Nejprve se musíte přihlásit!');
+            return res.status(403).redirect('/auth/login')
+        } else if (data.uid) {
+            req = data;
             console.log('AUTH OK');
             next();
         }
@@ -36,7 +42,8 @@ exports.logout = async(req, res) => {
         req.token = token;
         res.clearCookie("jwt");
         console.log('loged out');
-        return res.redirect('auth/login');
+        req.flash('message', 'Uživatel odhlášen');
+        return res.redirect('/auth/login');
     } catch (error) {
         res.status(401).send(error);
     }
@@ -72,20 +79,21 @@ exports.login = async(req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).render('auth/login', {
-                error: "Email nebo heslo není vyplněno!"
-            });
+            req.flash('error', 'Email nebo heslo není vyplněno.');
+            return res.status(400).rendirect('auth/login');
         }
 
         db.query('SELECT * FROM users WHERE email = ?', [email], async(error, results) => {
             console.log(results);
             if (!results || results[0] == null || !(await bcrypt.compare(password, results[0].passw))) {
-                return res.status(401).render('auth/login', {
-                    error: "Email nebo heslo nesouhlasí"
-                });
+                req.flash('error', 'Email nebo heslo neodpovídá záznamům!');
+                return res.status(401).redirect('/auth/login');
             } else {
-                const id = results[0].id;
-                const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                const uid = results[0].id;
+                const uname = results[0].name;
+                const uemail = results[0].email;
+                const upermissions = results[0].permissions;
+                const token = jwt.sign({ uid, uname, uemail, upermissions }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRATION
                 });
                 console.log("Token is:" + token);
@@ -97,8 +105,10 @@ exports.login = async(req, res) => {
                 }
 
                 res.cookie('jwt', token, cookieOptions);
-                res.status(200).redirect('/');
                 console.log('loged in');
+                req.flash('message', 'Uživatel přihlášen!');
+                res.status(200).redirect('/');
+
             }
         })
 

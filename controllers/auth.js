@@ -4,14 +4,6 @@ const bcrypt = require("bcryptjs");
 const RequestIp = require('@supercharge/request-ip');
 const mySqlSelect = require('../mysql/select');
 
-/*
-
-  req.flash('message', 'Uživatel založen');
-                return res.redirect('menu')
-
-
-*/
-
 exports.checkToken = (req, res, next) => {
     const ip = RequestIp.getClientIp(req)
     console.log('IP in statistiky ' + ip);
@@ -31,8 +23,6 @@ exports.checkToken = (req, res, next) => {
     });
 }
 
-
-
 exports.logout = async(req, res) => {
     try {
         const token = req.cookies.jwt;
@@ -48,7 +38,6 @@ exports.logout = async(req, res) => {
         res.status(401).send(error);
     }
 }
-
 
 exports.changePassword = async(req, res, next) => {
     const { pid, password, passwordConfirm } = req.body;
@@ -73,7 +62,6 @@ exports.changePassword = async(req, res, next) => {
         return res.redirect('menu')
     }
 }
-
 
 exports.login = async(req, res) => {
     try {

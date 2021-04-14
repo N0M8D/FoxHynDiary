@@ -10,3 +10,14 @@ exports.fromUsers = function(callback) {
         }
     });
 }
+
+
+exports.fromDogs = function(callback) {
+    db.query('SELECT * FROM dogs ', async(error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
+            callback(results);
+        }
+    })
+}

@@ -7,8 +7,14 @@ const authController = require('../controllers/auth');
 
 
 exports.loadMenu = async(req, res) => {
-    mySqlSelect.fromUsers(function(result) {
-        res.render('admin/menu', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), uzivatele: result });
+
+
+
+    mySqlSelect.fromDogs(function(result) {
+        let dogs = result;
+        mySqlSelect.fromUsers(function(result) {
+            res.render('admin/menu', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), uzivatele: result, userData: req.userData, dogs });
+        })
     })
 };
 

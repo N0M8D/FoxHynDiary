@@ -23,7 +23,7 @@
             <li>
                 <a href="/">Home</a>
             </li>
-            <%if(typeof logedIn == "undefined" || logedIn == false){%>
+            <%if(!userData || typeof(userData) == "undefined"){%>
                 <li>
                     <a href="/auth/login">Login</a>
                 </li>
@@ -41,6 +41,16 @@
                         <a href="/pessos/denik/zaznamy">Záznamy</a>
                     </li>
                     <%} %>
+                        <%if(userData.upermissions == "admin"){%>
+                            <li>
+                                <a href="/admin/menu">Administrace</a>
+                            </li>
+                            <% } %>
+                                <%if(userData.upermissions == "cvicitel"){%>
+                                    <li>
+                                        <a href="/admin/cvicitel">Cvičitel</a>
+                                    </li>
+                                    <% } %>
 
         </ul>
     </nav>
@@ -226,56 +236,64 @@
                     <button class="btn btn-primary mb-5" type="submit">Zalžit/Uožit uživatele</button>
                 </div>
             </form>
+            <div style="padding-bottom: 10%;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Smečka uživatele:</h4>
+                        <table class="table table-sm table-bordered table-hover" onclick="selectPes()">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Jméno</th>
+                                    <th scope="col">Rasa</th>
+                                    <th scope="col">Věk</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                        if(dogs.length != 0 && typeof dogs != "undefined"){
+                            var i = 1;                           
+                        dogs.forEach(function(data){ if (data != "") {
+                        %>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Smečka uživatele:</h4>
-                    <table class="table table-sm table-bordered table-hover" onclick="selectPes()">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Jméno</th>
-                                <th scope="col">Rasa</th>
-                                <th scope="col">Věk</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="pes-1">
-                                <th scope="row">1</th>
-                                <td class="row-data">Pes</td>
-                                <td class="row-data">Dalmatýn</td>
-                                <td class="row-data">5</td>
-                            </tr>
-                            <tr id="pes-2">
-                                <th scope="row">2</th>
-                                <td class="row-data">Kočka</td>
-                                <td class="row-data">Vlčák</td>
-                                <td class="row-data">2</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <h4>Data o psovi:</h4>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Jméno</span>
-                        <input id="pname" type="text " class="form-control" placeholder="Jméno psa">
+                                    <tr id="<%=data.id %>">
+                                        <th scope="row">
+                                            <%=i %>
+                                        </th>
+                                        <td class="row-data">
+                                            <%=data.name %>
+                                        </td>
+                                        <td class="row-data">
+                                            <%=data.race %>
+                                        </td>
+                                        <td class="row-data">
+                                            <%= new Date().getFullYear() - data.born.getFullYear(); %>
+                                        </td>
+                                    </tr>
+                                    <% i++;}})} %>
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="col-md-6">
+                        <h4>Data o psovi:</h4>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Jméno</span>
+                            <input id="pname" type="text " class="form-control" placeholder="Jméno psa">
+                        </div>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Rasa</span>
-                        <input id="prasa" type="text " class="form-control" placeholder="Rasa psa">
-                    </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Rasa</span>
+                            <input id="prasa" type="text " class="form-control" placeholder="Rasa psa">
+                        </div>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Věk</span>
-                        <input id="pvek" type="text " class="form-control" placeholder="Věk psa">
-                        <span class="input-group-text">let</span>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Věk</span>
+                            <input id="pvek" type="text " class="form-control" placeholder="Věk psa">
+                            <span class="input-group-text">let</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
 
     </main>
     <!-- Main part -->

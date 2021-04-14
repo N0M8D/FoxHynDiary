@@ -67,13 +67,13 @@ app.use((req, res, next) => {
 //setup the engine for views
 app.set('view engine', 'ejs');
 
-
+const auth = require('./controllers/auth');
 
 //get view screens
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
-app.use('/pessos', pessosRouter);
-app.use('/admin', adminRouter);
+app.use('/', auth.passUserData, indexRouter);
+app.use('/auth', auth.passUserData, authRouter);
+app.use('/pessos', auth.passUserData, pessosRouter);
+app.use('/admin', auth.passUserData, adminRouter);
 //app.use('/pessos/denik', denikRouter);
 
 
@@ -82,8 +82,8 @@ app.use('/admin', adminRouter);
 
 
 //The 404 Route (ALWAYS Keep this as the last route)
-app.get('*', function(req, res) {
-    res.render('404');
+app.get('*', auth.passUserData, function(req, res) {
+    res.render('404', { userData: req.userData });
 });
 
 module.exports = app;

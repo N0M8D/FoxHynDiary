@@ -21,7 +21,7 @@
             <li>
                 <a href="/">Home</a>
             </li>
-            <%if(typeof logedIn == "undefined" || logedIn == false){%>
+            <%if(!userData || typeof(userData) == "undefined"){%>
                 <li>
                     <a href="/auth/login">Login</a>
                 </li>
@@ -30,12 +30,25 @@
                         <a href="/auth/logout">Logout</a>
                     </li>
                     <li>
-                        <a href="/statistiky">Statistiky</a>
+                        <a href="/pessos/denik/denni">Denní záznam</a>
                     </li>
                     <li>
-                        <a href="/create-predavak">Založit nový</a>
+                        <a href="/pessos/denik/tydenni">Týdení záznam</a>
+                    </li>
+                    <li>
+                        <a href="/pessos/denik/zaznamy">Záznamy</a>
                     </li>
                     <%} %>
+                        <%if(userData.upermissions == "admin"){%>
+                            <li>
+                                <a href="/admin/menu">Administrace</a>
+                            </li>
+                            <% } %>
+                                <%if(userData.upermissions == "cvicitel"){%>
+                                    <li>
+                                        <a href="/admin/cvicitel">Cvičitel</a>
+                                    </li>
+                                    <% } %>
 
         </ul>
     </nav>

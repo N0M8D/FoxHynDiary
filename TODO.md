@@ -10,9 +10,9 @@
     - [x] Týdenní deník
     - [x] admin
 - [x] Získat práva přihl. uživatele
-    - [ ] Zobrazovat položky v menu dle uživatele
-    - [ ] Menu refactoring
-- [ ] Dodělání správy uživatelů
+    - [x] Zobrazovat položky v menu dle uživatele
+    - [x] Menu refactoring
+- [x] Dodělání správy uživatelů
 - [ ] Evidence psů a přiřazování
 - [ ] Cvičitel menu pro adminy
     - [ ] Seznamn cvičitelů a jejich uživatelů

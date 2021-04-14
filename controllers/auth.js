@@ -15,8 +15,21 @@ exports.checkToken = (req, res, next) => {
             req.flash('error', 'Nejprve se musíte přihlásit!');
             return res.status(403).redirect('/auth/login')
         } else if (data.uid) {
-            req = data;
+            req.userData = data;
             console.log('AUTH OK');
+            next();
+        }
+
+    });
+}
+
+exports.passUserData = (req, res, next) => {
+    const authcookie = req.cookies.jwt
+    jwt.verify(authcookie, process.env.JWT_SECRET, (err, data) => {
+        if (err) {
+            next();
+        } else if (data.uid) {
+            req.userData = data;
             next();
         }
 

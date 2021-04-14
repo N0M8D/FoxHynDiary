@@ -1,19 +1,20 @@
 var express = require('express');
 const router = express.Router();
+const auth = require('../controllers/auth');
 
 
 
 
 router.get('/denik/denni', function(req, res, next) {
-    res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
+    res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
 
 });
 router.get('/denik/tydenni', function(req, res, next) {
-    res.render('pessos/denik/tydenni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
+    res.render('pessos/denik/tydenni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
 
 });
 router.get('/denik/zaznamy', function(req, res, next) {
-    res.render('pessos/denik/zaznamy', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
+    res.render('pessos/denik/zaznamy', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
 
 });
 
@@ -22,12 +23,12 @@ router.get('/denik/zaznamy', function(req, res, next) {
 
 
 router.get('/plany', function(req, res, next) {
-    res.render('pessos/plany', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
+    res.render('pessos/plany', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
 
 });
 
 router.get('/profile', function(req, res, next) {
-    res.render('pessos/profile', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
+    res.render('pessos/profile', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
     /*
         const authcookie = req.cookies.jwt
         jwt.verify(authcookie, process.env.JWT_SECRET, (err, data) => {

@@ -5,11 +5,11 @@ const authController = require('../controllers/auth');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index');
+    res.render('index', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
 });
 
 router.get('/login', function(req, res) {
-    res.render('auth/login');
+    res.render('auth/login', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message') });
 });
 /*
 router.get('/createuser', function(req, res) {

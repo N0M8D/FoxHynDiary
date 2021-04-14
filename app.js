@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 var favicon = require('serve-favicon');
 var path = require('path');
 const session = require('express-session');
+const jwt = require("jsonwebtoken");
 //const flash = require('flash');
 
 // required routes .. 
@@ -43,8 +44,24 @@ app.use(session({
 }));
 app.use(flash());
 
+/*
+app.use((req, res, next) => {
+    const authcookie = req.cookies.jwt
+    jwt.verify(authcookie, process.env.JWT_SECRET, (err, data) => {
+        if (err) {
+            console.log('notloged');
+            req.user = "NOT LOGED"
+            next();
+        } else if (data.id) {
+            console.log('logedin');
+            req.id = data.id
+            req.user = "LOGED IN"
+            next();
+        }
 
-
+    });
+})
+*/
 
 
 //setup the engine for views

@@ -51,18 +51,31 @@
             <h1 class="mt-5">Administátorské menu</h1>
             <p class="lead">HAHA.</p>
 
-            <%  if(message.length > 0) { %>
-                <div class="alert alert-success" style="text-align: center;">
-                    <%= message %>
-                </div>
-                <% } %>
-
-                    <%  if(error.length > 0) { %>
-                        <div class="alert alert-danger" style="text-align: center;">
+            <div class="p-5">
+                <%  if(message.length > 0) { %>
+                    <div class="alert alert-success" style="text-align: center;">
+                        <h4>
                             <%= message %>
-                        </div>
-                        <% } %>
+                        </h4>
+                    </div>
+                    <% } %>
 
+                        <%  if(error.length > 0) { %>
+                            <div class="alert alert-danger" style="text-align: center;">
+                                <h4>
+                                    <%= message %>
+                                </h4>
+                            </div>
+                            <% } %>
+
+                                <%  if(info.length > 0) { %>
+                                    <div class="alert alert--info" style="text-align: center;">
+                                        <h4>
+                                            <%= message %>
+                                        </h4>
+                                    </div>
+                                    <% } %>
+            </div>
         </div>
 
         <div class="flex-shrink-0 mt-5 container">

@@ -5,6 +5,19 @@ const mySqlUpdate = require('../mysql/update');
 const authController = require('../controllers/auth');
 
 
+exports.saveDog = (req, res) => {
+
+    mySqlUpdate.dog(req, function() {
+        return res.redirect('menu');
+    });
+}
+
+exports.addDog = (req, res) => {
+    mySqlInsert.intoDogs(req, function() {
+        return res.redirect('menu');
+    });
+}
+
 
 exports.loadMenu = async(req, res) => {
 

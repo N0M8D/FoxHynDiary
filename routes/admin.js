@@ -14,4 +14,8 @@ router.post('/saveOrCreate', function(req, res) {
 })
 */
 
+router.post('/savedog', adminController.saveDog);
+
+router.post('/adddog', adminController.addDog);
+
 module.exports = router;

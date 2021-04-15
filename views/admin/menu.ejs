@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
-    <script type="text/javascript" src="/public/js/scripts.js"></script>
+    <script src="/js/scripts.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -40,17 +40,16 @@
                     <li>
                         <a href="/pessos/denik/zaznamy">Záznamy</a>
                     </li>
-                    <%} %>
-                        <%if(userData.upermissions == "admin"){%>
-                            <li>
-                                <a href="/admin/menu">Administrace</a>
-                            </li>
-                            <% } %>
-                                <%if(userData.upermissions == "cvicitel"){%>
-                                    <li>
-                                        <a href="/admin/cvicitel">Cvičitel</a>
-                                    </li>
-                                    <% } %>
+                    <%if(userData.upermissions == "admin"){%>
+                        <li>
+                            <a href="/admin/menu">Administrace</a>
+                        </li>
+                        <% } %>
+                            <%if(userData.upermissions == "cvicitel"){%>
+                                <li>
+                                    <a href="/admin/cvicitel">Cvičitel</a>
+                                </li>
+                                <% }} %>
 
         </ul>
     </nav>
@@ -105,10 +104,10 @@
                 </thead>
                 <tbody>
                     <%
-                        if(uzivatele.length != 0 && typeof uzivatele != "undefined"){
-                            var i = 1;
-                        uzivatele.forEach(function(data){ if (data != "") {
-                        %>
+                            if(uzivatele.length != 0 && typeof uzivatele != "undefined"){
+                                var i = 1;
+                            uzivatele.forEach(function(data){ if (data != "") {
+                            %>
                         <tr id="<%=data.id %>">
                             <th scope="row">
                                 <%=i %>
@@ -133,12 +132,11 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_<%=data.id %>">
-                                    Změnit heslo
-                                </button>
+                                        Změnit heslo
+                                    </button>
 
                             </td>
                         </tr>
-
                         <!-- The Modal -->
                         <div class="modal" id="myModal_<%=data.id %>">
                             <div class="modal-dialog">
@@ -183,7 +181,7 @@
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
 
-                                        <button type="button" class="btn btn-danger" onclick="hideit()">Zavřít</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
                                     </div>
 
                                 </div>
@@ -237,64 +235,138 @@
                 </div>
             </form>
             <div style="padding-bottom: 10%;">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Smečka uživatele:</h4>
-                        <table class="table table-sm table-bordered table-hover" onclick="selectPes()">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Jméno</th>
-                                    <th scope="col">Rasa</th>
-                                    <th scope="col">Věk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                        if(dogs.length != 0 && typeof dogs != "undefined"){
-                            var i = 1;                           
-                        dogs.forEach(function(data){ if (data != "") {
-                        %>
+                <h4>Smečka uživatele:</h4>
+                <table id="dogsTable" class="table table-sm table-bordered table-hover" onclick="selectPes()">
+                    <thead>
+                        <tr>
+                            <th scope="col">PID</th>
+                            <th scope="col">Jméno</th>
+                            <th scope="col">Rasa</th>
+                            <th scope="col">Věk</th>
+                            <th scope="col">Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                                    if(dogs.length != 0 && typeof dogs != "undefined"){
+                                        var i = 1;                           
+                                    dogs.forEach(function(data){ if (data != "") {
+                                %>
 
-                                    <tr id="<%=data.id %>">
-                                        <th scope="row">
-                                            <%=i %>
-                                        </th>
-                                        <td class="row-data">
-                                            <%=data.name %>
-                                        </td>
-                                        <td class="row-data">
-                                            <%=data.race %>
-                                        </td>
-                                        <td class="row-data">
-                                            <%= new Date().getFullYear() - data.born.getFullYear(); %>
-                                        </td>
-                                    </tr>
-                                    <% i++;}})} %>
-                            </tbody>
-                        </table>
+                            <tr id="pes-<%=data.id %>">
+                                <td class="row-data">
+                                    <%=data.pid %>
+                                </td>
+                                <td class="row-data">
+                                    <%=data.name %>
+                                </td>
+                                <td class="row-data">
+                                    <%=data.race %>
+                                </td>
+                                <td class="row-data">
+                                    <%= new Date().getFullYear() - data.born.getFullYear(); %>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#dogModal_<%=data.id %>">
+                                        Upravit data
+                                    </button>
+
+                                </td>
+                                <!-- The dogsModal -->
+                                <div class="modal" id="dogModal_<%=data.id %>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Editace psa</h4>
+                                                <button type="button" class="btn close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form method="post" action="/admin/saveDog">
+                                                    <input type="text" class="form-control" required id="id" name="id" value="<%=data.id %>" hidden>
+
+                                                    <input type="text " class="form-control" placeholder="Jméno" required id="name" name="name" value="<%=data.name %>">
+
+                                                    <input type="text " class="form-control" placeholder="Rasa" required id="race" name="race" value="<%=data.race %>">
+
+                                                    <input type="text " class="form-control" placeholder="Narození" required id="born" name="born" value="<%=data.born.getMonth() + '-' + data.born.getDay() +'-'+ data.born.getFullYear()  %>">
+                                                    <p>Datum je ve formátu MM-DD-YYYY</p>
+                                                    <div class="row mt-3">
+                                                        <button type="submit " id="submit" class="btn btn-success" onclick="hidedog()">Uložit</button>
+                                                        <script>
+                                                            function hidedog() {
+                                                                $('#dogModal_<%=data.id %>').modal('hide')
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- The dogsModal -->
+                            </tr>
+
+                            <% i++;}})} %>
+                    </tbody>
+                </table>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary mb-5 btn-sm" type="submit" data-toggle="modal" data-target="#AddDogModal">Přidat psa</button>
+                    <!-- The AddDogModal -->
+                    <div class="modal" id="AddDogModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Založení nového psa</h4>
+                                    <button type="button" class="btn close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <form action="/admin/addDog" method="post">
+                                        <input type="text" class="form-control" required id="add-dog-pid" name="pid" value="" hidden>
+
+                                        <input type="text " class="form-control" placeholder="Jméno" required id="name" name="name" value="">
+
+                                        <input type="text " class="form-control" placeholder="Rasa" required id="race" name="race" value="">
+
+                                        <input type="text " class="form-control" placeholder="Narození" required id="born" name="born" value="">
+                                        <p>Datum je ve formátu MM-DD-YYYY</p>
+                                        <div class="row mt-3">
+                                            <button type="submit " id="submit" class="btn btn-success" onclick="hideadddog()">Uložit</button>
+                                            <script>
+                                                function hideadddog() {
+                                                    $('#AddDogModal').modal('hide')
+                                                }
+                                            </script>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <h4>Data o psovi:</h4>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Jméno</span>
-                            <input id="pname" type="text " class="form-control" placeholder="Jméno psa">
-                        </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Rasa</span>
-                            <input id="prasa" type="text " class="form-control" placeholder="Rasa psa">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Věk</span>
-                            <input id="pvek" type="text " class="form-control" placeholder="Věk psa">
-                            <span class="input-group-text">let</span>
-                        </div>
-                    </div>
+                    <!-- The AddDogModal -->
                 </div>
             </div>
 
+        </div>
     </main>
     <!-- Main part -->
 
@@ -311,41 +383,7 @@
     </footer>
     <!-- Footer -->
 
-    <script>
-        function selectPes() {
-            var rowId =
-                event.target.parentNode.id;
-            var data =
-                document.getElementById(rowId).querySelectorAll(".row-data");
-            var pname = data[0].innerHTML;
-            var prasa = data[1].innerHTML;
-            var pvek = data[2].innerHTML;
 
-            document.getElementById('pname').value = pname.trim();
-            document.getElementById('prasa').value = prasa.trim();
-            document.getElementById('pvek').value = pvek.trim();
-
-        };
-
-        function tclick() {
-            var rowId =
-                event.target.parentNode.id;
-            //this gives id of tr whose button was clicked
-            console.log('HAHAHAH ' + rowId);
-            var data =
-                document.getElementById(rowId).querySelectorAll(".row-data");
-            var name = data[0].innerHTML;
-            var email = data[1].innerHTML;
-            var adress = data[2].innerHTML;
-            var tel = data[3].innerHTML;
-            var role = data[4].innerHTML;
-            document.getElementById('name').value = name.trim();
-            document.getElementById('email').value = email.trim();
-            document.getElementById('adress').value = adress.trim();
-            document.getElementById('tel').value = tel.trim();
-            document.getElementById('permissions').value = role.trim();
-        };
-    </script>
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 

@@ -2,6 +2,28 @@ const db = require("../database");
 
 
 
+
+exports.intoDogs = function(req, callback, next) {
+
+    const { pid, name, race, born } = req.body;
+    db.query('INSERT INTO dogs SET ? ', {
+        pid,
+        name,
+        race,
+        born
+    }, async(error) => {
+        if (error) {
+            console.log(error);
+            req.flash('error', 'Chyba zakládání psa');
+            next();
+        } else {
+            req.flash('message', 'Pes založen !');
+            next();
+        }
+    });
+
+}
+
 exports.intoUsers = function(req, callback, next) {
 
     console.log("INSERTING DATA:.");

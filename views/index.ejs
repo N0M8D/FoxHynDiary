@@ -36,18 +36,17 @@
                     <li>
                         <a href="/pessos/denik/zaznamy">Záznamy</a>
                     </li>
-                    <%} %>
-                        <%if(userData.upermissions == "admin"){%>
-                            <li>
-                                <a href="/admin/menu">Administrace</a>
-                            </li>
-                            <% } %>
-                                <%if(userData.upermissions == "cvicitel"){%>
-                                    <li>
-                                        <a href="/admin/cvicitel">Cvičitel</a>
-                                    </li>
-                                    <% } %>
-
+                    <%if(userData.upermissions == "admin"){%>
+                        <li>
+                            <a href="/admin/menu">Administrace</a>
+                        </li>
+                        <% } %>
+                            <%if(userData.upermissions == "cvicitel"){%>
+                                <li>
+                                    <a href="/admin/cvicitel">Cvičitel</a>
+                                </li>
+                                <% } %>
+                                    <%} %>
         </ul>
     </nav>
 

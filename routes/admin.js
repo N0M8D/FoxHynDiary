@@ -7,6 +7,8 @@ const adminController = require('../controllers/admin');
 
 router.use('/menu', authController.checkToken, adminController.loadMenu);
 
+router.use('/cvicitel', authController.checkToken, adminController.loadCvicitelMenu)
+
 router.post('/saveOrCreate', adminController.saveOrCreate);
 /*
 router.post('/saveOrCreate', function(req, res) {

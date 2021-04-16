@@ -3,7 +3,7 @@ const db = require("../database");
 
 
 
-exports.intoDogs = function(req, callback, next) {
+exports.intoDogs = function(req, next) {
 
     const { pid, name, race, born } = req.body;
     db.query('INSERT INTO dogs SET ? ', {

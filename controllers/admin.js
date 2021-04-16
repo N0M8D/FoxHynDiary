@@ -5,9 +5,14 @@ const mySqlUpdate = require('../mysql/update');
 const authController = require('../controllers/auth');
 
 
+exports.loadCvicitelMenu = async(req, res) => {
+    res.render('admin/cvicitel', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
+};
+
+
 exports.saveDog = (req, res) => {
 
-    mySqlUpdate.dog(req, function() {
+    mySqlUpdate.dogs(req, function() {
         return res.redirect('menu');
     });
 }
@@ -20,9 +25,6 @@ exports.addDog = (req, res) => {
 
 
 exports.loadMenu = async(req, res) => {
-
-
-
     mySqlSelect.fromDogs(function(result) {
         let dogs = result;
         mySqlSelect.fromUsers(function(result) {

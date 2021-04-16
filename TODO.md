@@ -13,7 +13,7 @@
     - [x] Zobrazovat položky v menu dle uživatele
     - [x] Menu refactoring
 - [x] Dodělání správy uživatelů
-- [ ] Evidence psů a přiřazování
+- [x] Evidence psů a přiřazování
 - [ ] Cvičitel menu pro adminy
     - [ ] Seznamn cvičitelů a jejich uživatelů
     - [ ] Přiřadit uživatele pod cvičitele

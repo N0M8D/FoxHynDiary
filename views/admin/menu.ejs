@@ -42,6 +42,9 @@
                     </li>
                     <%if(userData.upermissions == "admin"){%>
                         <li>
+                            <a href="/admin/cvicitel">Cvičitel</a>
+                        </li>
+                        <li>
                             <a href="/admin/menu">Administrace</a>
                         </li>
                         <% } %>
@@ -72,7 +75,7 @@
                         <%  if(error.length > 0) { %>
                             <div class="alert alert-danger" style="text-align: center;">
                                 <h4>
-                                    <%= message %>
+                                    <%= error %>
                                 </h4>
                             </div>
                             <% } %>
@@ -80,7 +83,7 @@
                                 <%  if(info.length > 0) { %>
                                     <div class="alert alert--info" style="text-align: center;">
                                         <h4>
-                                            <%= message %>
+                                            <%= info %>
                                         </h4>
                                     </div>
                                     <% } %>
@@ -292,11 +295,13 @@
 
                                                     <input type="text " class="form-control" placeholder="Rasa" required id="race" name="race" value="<%=data.race %>">
 
-                                                    <input type="text " class="form-control" placeholder="Narození" required id="born" name="born" value="<%=data.born.getMonth() + '-' + data.born.getDay() +'-'+ data.born.getFullYear()  %>">
-                                                    <p>Datum je ve formátu MM-DD-YYYY</p>
+                                                    <input type="text " class="form-control" placeholder="Narození" required id="born" name="born" value="<%=data.born.getFullYear() + '-' + data.born.getMonth() +'-'+ data.born.getDay()  %>">
+                                                    <p>Datum je ve formátu YYYY-MM-DD</p>
                                                     <div class="row mt-3">
                                                         <button type="submit " id="submit" class="btn btn-success" onclick="hidedog()">Uložit</button>
                                                         <script>
+                                                            onLoad();
+
                                                             function hidedog() {
                                                                 $('#dogModal_<%=data.id %>').modal('hide')
                                                             }
@@ -342,7 +347,7 @@
                                         <input type="text " class="form-control" placeholder="Rasa" required id="race" name="race" value="">
 
                                         <input type="text " class="form-control" placeholder="Narození" required id="born" name="born" value="">
-                                        <p>Datum je ve formátu MM-DD-YYYY</p>
+                                        <p>Datum je ve formátu YYYY-MM-DD</p>
                                         <div class="row mt-3">
                                             <button type="submit " id="submit" class="btn btn-success" onclick="hideadddog()">Uložit</button>
                                             <script>

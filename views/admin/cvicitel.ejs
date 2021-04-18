@@ -61,8 +61,40 @@
     <main class="flex-shrink-0 p-5">
 
         <h4>CVIČITEL MENU</h4>
+        <div class="container">
+            <table class='table table-bordered table-condensed table-striped table-hover'>
+                <tr>
+                    <th>Pes</th>
+                    <th>Rasa</th>
+                    <th>Majitel</th>
+                    <th>Cvičitel</th>
+                    <th>Akce</th>
+                </tr>
+                <tr class="table-row" data-href="/pessos/profile:2">
+                    <td>Meggie</td>
+                    <td>Mudi</td>
+                    <td>Josef Bouše</td>
+                    <td>Pavla Krausová</td>
+                    <td><button class="btn btn-danger">ODEBRAT CVIČITELE</button></td>
+                </tr>
+                <tr class="table-row" data-href="https://google.com">
+                    <td>Ben</td>
+                    <td>Labrador</td>
+                    <td>Danieala Poslušná</td>
+                    <td>Pavla Krausová</td>
+                    <td><button class="btn btn-danger">ODEBRAT CVIČITELE</button></td>
+                </tr>
 
+            </table>
+        </div>
 
+        <script type="text/javascript">
+            $(document).ready(function($) {
+                $(".table-row").click(function() {
+                    window.document.location = $(this).data("href");
+                });
+            });
+        </script>
 
     </main>
     <!-- Main part -->

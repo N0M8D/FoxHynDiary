@@ -14,9 +14,9 @@
     - [x] Menu refactoring
 - [x] Dodělání správy uživatelů
 - [x] Evidence psů a přiřazování
-- [ ] Cvičitel menu pro adminy
-    - [ ] Seznamn cvičitelů a jejich uživatelů
-    - [ ] Přiřadit uživatele pod cvičitele
+- [x] Cvičitel menu pro adminy
+    - [x] Seznamn cvičitelů a jejich uživatelů
+    - [x] Přiřadit uživatele pod cvičitele
 - [ ] Funkční deníky
 - [ ] Dynamická data
 - [ ] Tvorba úkolů

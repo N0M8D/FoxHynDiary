@@ -5,8 +5,26 @@ const mySqlUpdate = require('../mysql/update');
 const authController = require('../controllers/auth');
 
 
+exports.unassignCvic = (req, res) => {
+    mySqlUpdate.unassignCvic(req, function() {
+        return res.redirect('cvicitel');
+    })
+}
+
+exports.assigneCvic = (req, res) => {
+    mySqlUpdate.assignCvic(req, function() {
+        return res.redirect('cvicitel');
+    })
+}
+
 exports.loadCvicitelMenu = async(req, res) => {
-    res.render('admin/cvicitel', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
+    mySqlSelect.fromDogsForCvicitel(function(result) {
+        mySqlSelect.allCvicitels(function(cresult) {
+            res.render('admin/cvicitel', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, dogs: result, cvicitele: cresult });
+        })
+
+    })
+
 };
 
 

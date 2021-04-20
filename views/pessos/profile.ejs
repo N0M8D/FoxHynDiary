@@ -46,22 +46,33 @@
                                     <a href="/admin/cvicitel">Cvičitel</a>
                                 </li>
                                 <% }} %>
-
         </ul>
     </nav>
     <div class="Profile-div">
         <div class="card mb-3" style="max-width: 600px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img class="profile-icon-user " src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" alt="...">
+                    <img class="profile-icon-user " src="" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h4 class="card-title">Josef Bouše</h4>
-                        <p class="card-text">Tel.: 775 180 566</p>
-                        <p class="card-text">Email: info@email.cz</p>
-                        <p class="card-text">Adresa: Narysov 4, 26101</p>
-                        <p class="card-text">Registrován: 01.01.2001</p>
+                        <% if (profileData) { %>
+                            <h4 class="card-title">
+                                <%= profileData.name %>
+                            </h4>
+                            <p class="card-text">Tel.:
+                                <%= profileData.telefon %>
+                            </p>
+                            <p class="card-text">Email:
+                                <%= profileData.email %>
+                            </p>
+                            <p class="card-text">Adresa:
+                                <%= profileData.adress %>
+                            </p>
+                            <p class="card-text">Registrován:
+                                <%= profileData.registered %>
+                            </p>
+                            <% } %>
                     </div>
                 </div>
             </div>
@@ -74,40 +85,37 @@
                     <th scope="col">Jméno</th>
                     <th scope="col">Rasa</th>
                     <th scope="col">Věk</th>
-                    <th scope="col " style="width:1%">Akce</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row"><img class="pes-profile-icon" src="https://www.thesprucepets.com/thmb/fkocatcypSHCKeezdfPdGXOi3FU=/1333x1000/smart/filters:no_upscale()/top-friendliest-dog-breeds-4691511_hero-5c6a918dcf56409c888d78b0fac82d18.jpg" alt=""></th>
-                    <td>Ben</td>
-                    <td>Zlatý retrívr</td>
-                    <td>5</td>
-                    <td><button class="btn btn-primary">AKCE</button></td>
-                </tr>
-                <tr>
-                    <th scope="row"><img class="pes-profile-icon" src="https://foxhyn.files.wordpress.com/2021/03/img_9836.jpg?w=1400&h=" alt=""></th>
-                    <td>Ariška</td>
-                    <td>Mudi</td>
-                    <td>3</td>
-                    <td><button class="btn btn-primary">AKCE</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                <%
+                        if(dogs.length != 0 && typeof dogs != "undefined"){
+                            var i = 1;
+                            dogs.forEach(function(data){
+                        %>
+                    <tr id="<%=data.id %>">
+                        <th scope="row">
+                            <%=i %>
+                        </th>
+                        <td class="row-data">
+                            <%=data.name %>
+                        </td>
+                        <td class="row-data">
+                            <%=data.race %>
+                        </td>
+                        <td class="row-data">
+                            <%= new Date().getFullYear() - data.born.getFullYear(); %>
+                        </td>
+                    </tr>
+
+                    <% i++;})} else {  %>
+                        <td colspan="4" class="row-data">
+                            "NO DATA"
+                        </td>
+                        <% } %>
             </tbody>
         </table>
-
-
-
-
     </div>
-
-
-
-
 
 
     <!-- Footer -->

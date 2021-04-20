@@ -1,7 +1,7 @@
 var express = require('express');
 const router = express.Router();
 const auth = require('../controllers/auth');
-
+const mySqlSelect = require('../mysql/select');
 
 
 
@@ -27,8 +27,14 @@ router.get('/plany', function(req, res, next) {
 
 });
 
-router.get('/profile', function(req, res, next) {
-    res.render('pessos/profile', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
+router.use('/profile', function(req, res, next) {
+    mySqlSelect.specificUser(req, function(result) {
+        mySqlSelect.dogsOfUser(req, function(dresult) {
+            var data = result[0];
+            res.render('pessos/profile', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, profileData: data, dogs: dresult });
+        })
+    })
+
     /*
         const authcookie = req.cookies.jwt
         jwt.verify(authcookie, process.env.JWT_SECRET, (err, data) => {

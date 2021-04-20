@@ -57,41 +57,152 @@
         </ul>
     </nav>
 
+    <div class="container">
+        <%  if(message.length > 0) { %>
+            <div class="alert alert-success" style="text-align: center;">
+                <h4>
+                    <%= message %>
+                </h4>
+            </div>
+            <% } %>
+
+                <%  if(error.length > 0) { %>
+                    <div class="alert alert-danger" style="text-align: center;">
+                        <h4>
+                            <%= error %>
+                        </h4>
+                    </div>
+                    <% } %>
+
+                        <%  if(info.length > 0) { %>
+                            <div class="alert alert--info" style="text-align: center;">
+                                <h4>
+                                    <%= info %>
+                                </h4>
+                            </div>
+                            <% } %>
+    </div>
+
     <!-- Main part -->
     <main class="flex-shrink-0 p-5">
-
         <h4>CVIČITEL MENU</h4>
         <div class="container">
             <table class='table table-bordered table-condensed table-striped table-hover'>
-                <tr>
-                    <th>Pes</th>
-                    <th>Rasa</th>
-                    <th>Majitel</th>
-                    <th>Cvičitel</th>
-                    <th>Akce</th>
-                </tr>
-                <tr class="table-row" data-href="/pessos/profile:2">
-                    <td>Meggie</td>
-                    <td>Mudi</td>
-                    <td>Josef Bouše</td>
-                    <td>Pavla Krausová</td>
-                    <td><button class="btn btn-danger">ODEBRAT CVIČITELE</button></td>
-                </tr>
-                <tr class="table-row" data-href="https://google.com">
-                    <td>Ben</td>
-                    <td>Labrador</td>
-                    <td>Danieala Poslušná</td>
-                    <td>Pavla Krausová</td>
-                    <td><button class="btn btn-danger">ODEBRAT CVIČITELE</button></td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>Pes</th>
+                        <th>Rasa</th>
+                        <th>Majitel</th>
+                        <th>Cvičitel</th>
+                        <th>Akce</th>
+                    </tr>
+                    <%
+                            if(dogs.length != 0 && typeof dogs != "undefined"){
+                                var i = 1;
+                            dogs.forEach(function(data){ if (data != "") {
+                            %>
+                        <tr id="<%=data.id %>" class="clickable-row" data-href="/pessos/profile?id=<%=data.uid %>">
+                            <td class="row-data">
+                                <%=data.name %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.race %>
+                            </td>
+                            <td class="row-data">
+                                <%=data.uname %>
+                            </td>
+                            <td class="row-data">
+                                <% if (data.cname != null) { %>
+                                    <%=data.cname %>
+                                        <%} else { %>
+                                            Nepřiřazen
+                                            <% } %>
+                            </td>
+                            <td>
+                                <% if(data.cname != null && data.cname != "" && data.cname != "Nepřiřazen")
+                                { %>
+                                    <form action="/admin/cvicitel/unassign" method="post">
+                                        <input type="text" hidden id="did" name="did" value="<%=data.id %>">
+                                        <button type="submit" class="btn btn-danger">
+                                        Odebrat cvičitele
+                                    </button>
+                                    </form>
+                                    <%} else if(userData.upermissions == "admin") { %>
+                                        <button type="submit " class="btn btn-success" data-toggle="modal" data-target="#myModal_<%=data.id %>">
+                                        Přidat cvičitele
+                                    </button>
+                                        <!-- The Modal -->
+                                        <div class="modal" id="myModal_<%=data.id %>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
 
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Výběr cvičitele</h4>
+                                                        <button type="button" class="btn close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+
+                                                        <table class='table table-bordered'>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Cvičitel</th>
+                                                                </tr>
+                                                                <%
+                                                                    if(cvicitele.length != 0 && typeof cvicitele != "undefined"){
+                                                                        cvicitele.forEach(function(mdata){
+                                                                    %>
+                                                                    <tr id="<%=data.id %>">
+                                                                        <td>
+                                                                            <form action="/admin/cvicitel/assign" method="post">
+                                                                                <input type="text" hidden id="did" name="did" value="<%=data.id %>">
+                                                                                <input type="text" hidden id="cid" name="cid" value="<%=mdata.id %>">
+                                                                                <button class="btn btn-secondary" style="width: 100%"><%=mdata.name %></button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <%})} %>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- The Modal -->
+                                        <% } else if (userData.upermissions == "cvicitel") { %>
+                                            <form action="/admin/cvicitel/assign" method="post">
+                                                <input type="text" hidden id="did" name="did" value="<%=data.id %>">
+                                                <input type="text" hidden id="cid" name="cid" value="<%=userData.uid %>">
+                                                <button type="submit" class="btn btn-success">
+                                        Převzít
+                                    </button>
+                                            </form>
+                                            <% } %>
+                            </td>
+
+                            <% i++;}})} else {  %>
+                                <td colspan="7" class="row-data">
+                                    "NO DATA"
+                                </td>
+                                <% } %>
+                        </tr>
+                </tbody>
             </table>
         </div>
 
         <script type="text/javascript">
             $(document).ready(function($) {
-                $(".table-row").click(function() {
-                    window.document.location = $(this).data("href");
+                $(".clickable-row").click(function() {
+                    window.document.location = $(this).data('href');
                 });
             });
         </script>

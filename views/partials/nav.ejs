@@ -1,0 +1,34 @@
+<h4>FoxHyn Deník</h4>
+<ul>
+    <li>
+        <a href="/">Home</a>
+    </li>
+    <%if(!userData || typeof(userData) == "undefined"){%>
+        <li>
+            <a href="/auth/login">Login</a>
+        </li>
+        <% } else { %>
+            <li>
+                <a href="/auth/logout">Logout</a>
+            </li>
+            <li>
+                <a href="/pessos/denik/denni">Denní záznam</a>
+            </li>
+            <li>
+                <a href="/pessos/denik/tydenni">Týdení záznam</a>
+            </li>
+            <li>
+                <a href="/pessos/denik/zaznamy">Záznamy</a>
+            </li>
+            <%if(userData.upermissions == "admin"){%>
+                <li>
+                    <a href="/admin/menu">Administrace</a>
+                </li>
+                <% } %>
+                    <%if(userData.upermissions == "cvicitel"){%>
+                        <li>
+                            <a href="/admin/cvicitel">Cvičitel</a>
+                        </li>
+                        <% }} %>
+
+</ul>

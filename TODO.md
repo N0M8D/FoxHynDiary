@@ -17,6 +17,12 @@
 - [x] Cvičitel menu pro adminy
     - [x] Seznamn cvičitelů a jejich uživatelů
     - [x] Přiřadit uživatele pod cvičitele
+- [ ] Funkční Plány
+    - [ ] Krátkodobé plány
+    - [ ] Dlouhodobé plány
+- [ ] Funkční Postupy
+- [ ] Funkční úspěchy
+- [ ] Sbírka postupů
 - [ ] Funkční deníky
 - [ ] Dynamická data
 - [ ] Tvorba úkolů

@@ -5,7 +5,7 @@ const db = require("../database");
 //PLÁNOVÁNÍ
 
 exports.smallPlansForUser = function(req, callback) {
-    db.query('SELECT plans_small.bid, plans_small.name, plans_small.dateend, ' +
+    db.query('SELECT plans_small.id, plans_small.bid, plans_small.name, plans_small.dateend, ' +
         'plans_big.name AS bname, dogs.name AS dname, plans_small.status ' +
         'FROM c1pessos.plans_small ' +
         'LEFT JOIN plans_big ' +

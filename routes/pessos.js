@@ -20,6 +20,7 @@ router.get('/denik/zaznamy', function(req, res, next) {
 
 });
 
+router.post('/completeGoal', plany.finishGoal);
 
 router.use('/plany', authController.checkToken, plany.load);
 

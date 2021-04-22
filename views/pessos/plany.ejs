@@ -54,10 +54,14 @@
                                                 <%=data.bname %>
                                             </td>
                                             <td>
-                                                <% if(data.status != 2 && data.status != 0) { %>
-                                                    <button class="btn btn-success disabled">Splněno</button>
-                                                    <%} else { %> <button class="btn btn-success">Splněno</button>
-                                                        <%}%>
+                                                <form action="/pessos/completeGoal" method="post">
+                                                    <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
+                                                    <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                                    <% if(data.status != 2 && data.status != 0) { %>
+                                                        <button class="btn btn-success disabled">Splněno</button>
+                                                        <%} else { %> <button class="btn btn-success">Splněno</button>
+                                                            <%}%>
+                                                </form>
                                             </td>
 
                     </tr>

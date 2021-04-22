@@ -1,6 +1,36 @@
 const db = require("../database");
 
 
+exports.completeGoal = function(req, next) {
+    const { gid, bid } = req.body;
+    db.query('UPDATE plans_small SET status = 1 WHERE id = ?', gid,
+        async(error) => {
+            if (error) {
+                console.log("Error..");
+                console.log(error);
+                req.flash('error', 'Chyba ukládání dat!');
+                next();
+            } else {
+                console.log("Done...");
+                db.query('UPDATE plans_big SET progress = (progress + 1) WHERE id = ?', bid,
+                    async(error) => {
+                        if (error) {
+                            console.log("Error..");
+                            console.log(error);
+                            req.flash('error', 'Chyba ukládání dat!');
+                            next();
+                        } else {
+                            console.log("Done...");
+                            req.flash('message', 'Cíl splněn ! Gratuluji !');
+                            next();
+                        }
+                    })
+            }
+        })
+
+
+}
+
 exports.unassignCvic = function(req, next) {
     const { did } = req.body;
     db.query("UPDATE dogs SET cid = '' WHERE id = ?", [

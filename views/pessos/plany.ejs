@@ -107,11 +107,27 @@
                                     var valuenow = Number(data.progress/num * 100)
                                     %>
                                 <div class="progress">
-                                    <div id="myBar" style="width: <%=valuenow%>%" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<%=valuenow%>" aria-valuemin="0" aria-valuemax="100">
+                                    <input hidden id="help<%=data.id %>" value="<%=valuenow%>"></input>
+                                    <div id="myBar<%=data.id %>" style="width: 0%" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<%=valuenow%>" aria-valuemin="0" aria-valuemax="100">
                                         <%=data.progress %> /
                                             <%=num %>
                                     </div>
                                 </div>
+
+                                <script>
+                                    function tap() {
+                                        var i = 1;
+                                        var elementExists = document.getElementById("help" + i);
+                                        while (elementExists) {
+                                            var valuenow = document.querySelector("#help" + i).value;
+                                            document.getElementById('myBar' + i).style.width = valuenow + '%';
+                                            i++;
+                                            var elementExists = document.getElementById("help" + i);
+                                        }
+                                        //document.getElementById('myBar2').style.width = 25 + '%';
+                                    }
+                                    tap();
+                                </script>
 
                         </td>
                     </tr>

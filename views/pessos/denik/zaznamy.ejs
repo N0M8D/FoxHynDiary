@@ -13,90 +13,64 @@
 </head>
 
 <body>
-    <nav>
-        <h4>FoxHyn Deník</h4>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <%if(!userData || typeof(userData) == "undefined"){%>
-                <li>
-                    <a href="/auth/login">Login</a>
-                </li>
-                <% } else { %>
-                    <li>
-                        <a href="/auth/logout">Logout</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/denni">Denní záznam</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/tydenni">Týdení záznam</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/zaznamy">Záznamy</a>
-                    </li>
-                    <%if(userData.upermissions == "admin"){%>
-                        <li>
-                            <a href="/admin/menu">Administrace</a>
-                        </li>
+
+    <head>
+        <%- include('../../partials/head.ejs'); %>
+    </head>
+
+    <body>
+        <nav>
+            <%- include('../../partials/nav.ejs'); %>
+        </nav>
+
+        <div class="p-5">
+            <%  if(message.length > 0) { %>
+                <div class="alert alert-success" style="text-align: center;">
+                    <h4>
+                        <%= message %>
+                    </h4>
+                </div>
+                <% } %>
+
+                    <%  if(error.length > 0) { %>
+                        <div class="alert alert-danger" style="text-align: center;">
+                            <h4>
+                                <%= error %>
+                            </h4>
+                        </div>
                         <% } %>
-                            <%if(userData.upermissions == "cvicitel"){%>
-                                <li>
-                                    <a href="/admin/cvicitel">Cvičitel</a>
-                                </li>
-                                <% }} %>
 
-        </ul>
-    </nav>
-    <div class="p-5">
-        <%  if(message.length > 0) { %>
-            <div class="alert alert-success" style="text-align: center;">
-                <h4>
-                    <%= message %>
-                </h4>
-            </div>
-            <% } %>
-
-                <%  if(error.length > 0) { %>
-                    <div class="alert alert-danger" style="text-align: center;">
-                        <h4>
-                            <%= error %>
-                        </h4>
-                    </div>
-                    <% } %>
-
-                        <%  if(info.length > 0) { %>
-                            <div class="alert alert-info" style="text-align: center;">
-                                <h4>
-                                    <%= info %>
-                                </h4>
-                            </div>
-                            <% } %>
-    </div>
-
-    <div class="UniPage-div">
-
-
-    </div>
-
-
-
-
-
-
-    <!-- Footer -->
-    <footer class="text-center text-white fixed-bottom " style="background-color: #21081a; ">
-        <!-- Grid container -->
-        <!-- Copyright -->
-        <div class="text-center p-3 " style="background-color: rgba(0, 0, 0, 0.2); ">
-            © 2021 Copyright:
-            <a class="text-white " href="https://josefbouse.cz/ " style="text-decoration: none; ">Josef Bouše</a>
+                            <%  if(info.length > 0) { %>
+                                <div class="alert alert-info" style="text-align: center;">
+                                    <h4>
+                                        <%= info %>
+                                    </h4>
+                                </div>
+                                <% } %>
         </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf " crossorigin="anonymous "></script>
-</body>
+
+        <div class="UniPage-div">
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Footer -->
+        <footer class="text-center text-white fixed-bottom " style="background-color: #21081a; ">
+            <!-- Grid container -->
+            <!-- Copyright -->
+            <div class="text-center p-3 " style="background-color: rgba(0, 0, 0, 0.2); ">
+                © 2021 Copyright:
+                <a class="text-white " href="https://josefbouse.cz/ " style="text-decoration: none; ">Josef Bouše</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+        <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf " crossorigin="anonymous "></script>
+    </body>
 
 </html>

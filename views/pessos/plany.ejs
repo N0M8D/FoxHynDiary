@@ -86,30 +86,30 @@
                     if(bigPlans.length != 0 && typeof bigPlans != "undefined"){
                         var i = 1;                           
                         bigPlans.forEach(function(data){ 
-                        %>
+                         var num = 0; 
+                          smallPlans.forEach(function(e){ 
+                                if(e.bid == data.id) {
+                               num++;
+                             }
+                          });
+                         var valuenow = Number(data.progress/num * 100)
+                         %>
 
-                    <tr id="bigPlan-<%=data.id %>">
-                        <th scope="row ">
-                            <%= i %>
-                        </th>
-                        <td>
-                            <%=data.name %>
-                        </td>
-                        <td>
-                            <%=data.dname %>
-                        </td>
-                        <td>
-                            <%=data.dateend.getDate() + '.' + (data.dateend.getMonth()+1) + '.' + data.dateend.getFullYear()%>
-                        </td>
-                        <td>
-                            <% var num = 0; 
-                                    smallPlans.forEach(function(e){ 
-                                        if(e.bid == data.id) {
-                                        num++;
-                                        }
-                                    });
-                                    var valuenow = Number(data.progress/num * 100)
-                                    %>
+                    <tr id="bigPlan-<%=data.id %>" <% if(num==data.progress){%> class="table-success"
+                        <%}%>>
+                            <th scope="row ">
+                                <%= i %>
+                            </th>
+                            <td>
+                                <%=data.name %>
+                            </td>
+                            <td>
+                                <%=data.dname %>
+                            </td>
+                            <td>
+                                <%=data.dateend.getDate() + '.' + (data.dateend.getMonth()+1) + '.' + data.dateend.getFullYear()%>
+                            </td>
+                            <td>
                                 <div class="progress">
                                     <input hidden id="help<%=data.id %>" value="<%=valuenow%>"></input>
                                     <div id="myBar<%=data.id %>" style="width: 0%" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<%=valuenow%>" aria-valuemin="0" aria-valuemax="100">
@@ -119,7 +119,7 @@
                                 </div>
 
                                 <script>
-                                    function tap() {
+                                    function progress() {
                                         var i = 1;
                                         var elementExists = document.getElementById("help" + i);
                                         while (elementExists) {
@@ -130,10 +130,10 @@
                                         }
                                         //document.getElementById('myBar2').style.width = 25 + '%';
                                     }
-                                    tap();
+                                    progress();
                                 </script>
 
-                        </td>
+                            </td>
                     </tr>
                     <% i++;})} %>
             </tbody>

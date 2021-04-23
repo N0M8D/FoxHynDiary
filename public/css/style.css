@@ -57,6 +57,8 @@ td {
     padding: 15px;
 }
 
+
+/*
 input[type=text],
 input[type=number],
 select {
@@ -69,34 +71,63 @@ select {
     box-sizing: border-box;
 }
 
+*/
+
+
+/*
 button[type=detail] {
     width: 100%;
     background-color: #af4c4c;
     color: white;
-    padding: 15px 15px;
-    /*margin: 2px 0;*/
-    border: none;
-    /*border-radius: 2px;*/
-    cursor: pointer;
+    padding: 15px 15px;*/
+
+
+/*margin: 2px 0;*/
+
+
+/*border: none;*/
+
+
+/*border-radius: 2px;*/
+
+
+/*cursor: pointer;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+*/
 
+
+/*
 button[type=detail]:hover {
     background-color: #a04545;
-}
+}*/
 
+
+/*
 button[type=print] {
     width: 100%;
     background-color: #5759c9;
     color: white;
-    padding: 4px 0px;
-    /*margin: 2px 0;*/
-    border: none;
-    /*border-radius: 2px;*/
-    cursor: pointer;
-    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-}
+    padding: 4px 0px;*/
 
+
+/*margin: 2px 0;*/
+
+
+/*border: none;*/
+
+
+/*border-radius: 2px;*/
+
+
+/*cursor: pointer;*/
+
+
+/* box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}*/
+
+
+/*
 button[type=print]:hover {
     background-color: #3a3c8a;
 }
@@ -105,14 +136,26 @@ button[type=odstranit] {
     width: 100%;
     background-color: #af4c4c;
     color: white;
-    padding: 4px 0px;
-    /*margin: 2px 0;*/
-    border: none;
-    /*border-radius: 2px;*/
-    cursor: pointer;
+    padding: 4px 0px;*/
+
+
+/*margin: 2px 0;*/
+
+
+/* border: none;*/
+
+
+/*border-radius: 2px;*/
+
+
+/* cursor: pointer;
     box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
+*/
+
+
+/*
 button[type=odstranit]:hover {
     background-color: #a04545;
 }
@@ -132,6 +175,7 @@ input[type=submit]:hover {
     background-color: #45a049;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+*/
 
 .Profile-div {
     padding-top: 15px;

@@ -17,9 +17,10 @@
 - [x] Cvičitel menu pro adminy
     - [x] Seznamn cvičitelů a jejich uživatelů
     - [x] Přiřadit uživatele pod cvičitele
-- [ ] Funkční Plány
-    - [ ] Krátkodobé plány
-    - [ ] Dlouhodobé plány
+- [x] Funkční Plány
+    - [x] Krátkodobé plány
+    - [x] Dlouhodobé plány
+- [ ] Tvorba a přiřazování aktivit
 - [ ] Funkční Postupy
 - [ ] Funkční úspěchy
 - [ ] Sbírka postupů
@@ -27,6 +28,7 @@
 - [ ] Dynamická data
 - [ ] Tvorba úkolů
 - [ ] Cvičitel menu pro cvičitele
+    - [ ] Zadávání plánů cxvičitelem
     - [ ] Zadávání úkolů cxvičitelem
     - [ ] Sledování aktivit a záznamů
 

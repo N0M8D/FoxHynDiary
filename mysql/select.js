@@ -2,6 +2,17 @@ const db = require("../database");
 
 
 
+exports.allActivity = function(callback) {
+    db.query('SELECT * FROM activity ',
+        async(error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                callback(results);
+            }
+        })
+}
+
 //PLÁNOVÁNÍ
 
 exports.smallPlansForUser = function(req, callback) {

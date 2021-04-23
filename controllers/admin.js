@@ -2,8 +2,22 @@ const express = require('express');
 const mySqlSelect = require('../mysql/select');
 const mySqlInsert = require('../mysql/insert');
 const mySqlUpdate = require('../mysql/update');
+const mySqlDelete = require('../mysql/remove');
 const authController = require('../controllers/auth');
 
+
+exports.deleteActivity = (req, res) => {
+    mySqlDelete.removeActivity(req, function() {
+        return res.redirect('cvicitel');
+    })
+}
+
+exports.addActivity = (req, res) => {
+    mySqlInsert.newActivity(req, function() {
+        return res.redirect('cvicitel');
+    })
+
+}
 
 exports.unassignCvic = (req, res) => {
     mySqlUpdate.unassignCvic(req, function() {
@@ -18,13 +32,13 @@ exports.assigneCvic = (req, res) => {
 }
 
 exports.loadCvicitelMenu = async(req, res) => {
-    mySqlSelect.fromDogsForCvicitel(function(result) {
-        mySqlSelect.allCvicitels(function(cresult) {
-            res.render('admin/cvicitel', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, dogs: result, cvicitele: cresult });
+    mySqlSelect.allActivity(function(aresult) {
+        mySqlSelect.fromDogsForCvicitel(function(result) {
+            mySqlSelect.allCvicitels(function(cresult) {
+                res.render('admin/cvicitel', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), activity: aresult, userData: req.userData, dogs: result, cvicitele: cresult });
+            })
         })
-
     })
-
 };
 
 

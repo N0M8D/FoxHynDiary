@@ -2,51 +2,12 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoxHyn Deník</title>
-
+    <%- include('../partials/head.ejs'); %>
 </head>
 
 <body>
     <nav>
-        <h4>FoxHyn Deník</h4>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <%if(!userData || typeof(userData) == "undefined"){%>
-                <li>
-                    <a href="/auth/login">Login</a>
-                </li>
-                <% } else { %>
-                    <li>
-                        <a href="/auth/logout">Logout</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/denni">Denní záznam</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/tydenni">Týdení záznam</a>
-                    </li>
-                    <li>
-                        <a href="/pessos/denik/zaznamy">Záznamy</a>
-                    </li>
-                    <%if(userData.upermissions == "admin"){%>
-                        <li>
-                            <a href="/admin/menu">Administrace</a>
-                        </li>
-                        <% } %>
-                            <%if(userData.upermissions == "cvicitel"){%>
-                                <li>
-                                    <a href="/admin/cvicitel">Cvičitel</a>
-                                </li>
-                                <% }} %>
-
-        </ul>
+        <%- include('../partials/nav.ejs'); %>
     </nav>
 
     <div class="p-5">

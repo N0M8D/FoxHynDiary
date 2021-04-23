@@ -1,7 +1,21 @@
 const db = require("../database");
 
 
-
+exports.newActivity = function(req, next) {
+    const { name } = req.body;
+    db.query('INSERT INTO activity SET ? ', {
+        name
+    }, async(error) => {
+        if (error) {
+            console.log(error);
+            req.flash('error', 'Chyba přidávání aktivity');
+            next();
+        } else {
+            req.flash('message', 'Aktivita přidána !');
+            next();
+        }
+    });
+}
 
 exports.intoDogs = function(req, next) {
 

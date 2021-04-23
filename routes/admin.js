@@ -7,6 +7,10 @@ const adminController = require('../controllers/admin');
 
 router.use('/menu', authController.checkToken, adminController.loadMenu);
 
+router.post('/cvicitel/removeactivity', adminController.deleteActivity);
+
+router.post('/cvicitel/addactivity', adminController.addActivity);
+
 router.post('/cvicitel/assign', adminController.assigneCvic);
 
 router.post('/cvicitel/unassign', adminController.unassignCvic);

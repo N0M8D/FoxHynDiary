@@ -6,56 +6,54 @@
 </head>
 
 <body>
-    <nav>
-        <%- include('./partials/nav.ejs'); %>
-    </nav>
+    <%- include('./partials/nav.ejs'); %>
 
-    <div class="p-5">
-        <%  if(message.length > 0) { %>
-            <div class="alert alert-success" style="text-align: center;">
-                <h4>
-                    <%= message %>
-                </h4>
-            </div>
-            <% } %>
-
-                <%  if(error.length > 0) { %>
-                    <div class="alert alert-danger" style="text-align: center;">
-                        <h4>
-                            <%= error %>
-                        </h4>
-                    </div>
-                    <% } %>
-
-                        <%  if(info.length > 0) { %>
-                            <div class="alert alert-info" style="text-align: center;">
-                                <h4>
-                                    <%= info %>
-                                </h4>
-                            </div>
-                            <% } %>
-    </div>
-
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1 class="mt-5">Vítejte na hlavní stránce</h1>
-            <p class="lead">TTT.</p>
-            <%if(userData){%>
-                <a href="/pessos/profile" class="btn btn-primary">Profil</a>
+        <div class="p-5">
+            <%  if(message.length > 0) { %>
+                <div class="alert alert-success" style="text-align: center;">
+                    <h4>
+                        <%= message %>
+                    </h4>
+                </div>
                 <% } %>
+
+                    <%  if(error.length > 0) { %>
+                        <div class="alert alert-danger" style="text-align: center;">
+                            <h4>
+                                <%= error %>
+                            </h4>
+                        </div>
+                        <% } %>
+
+                            <%  if(info.length > 0) { %>
+                                <div class="alert alert-info" style="text-align: center;">
+                                    <h4>
+                                        <%= info %>
+                                    </h4>
+                                </div>
+                                <% } %>
         </div>
-    </main>
-    <!-- Footer -->
-    <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
-        <!-- Grid container -->
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright:
-            <a class="text-white" href="https://josefbouse.cz/" style="text-decoration: none;">Josef Bouše</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+
+        <main class="flex-shrink-0">
+            <div class="container">
+                <h1 class="mt-5">Vítejte na hlavní stránce</h1>
+                <p class="lead">TTT.</p>
+                <%if(userData){%>
+                    <a href="/pessos/profile" class="btn btn-primary">Profil</a>
+                    <% } %>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
+            <!-- Grid container -->
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2021 Copyright:
+                <a class="text-white" href="https://josefbouse.cz/" style="text-decoration: none;">Josef Bouše</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
 
 </body>
 

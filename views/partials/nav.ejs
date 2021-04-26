@@ -1,34 +1,108 @@
-<h4>FoxHyn Deník</h4>
-<ul>
-    <li>
-        <a href="/">Home</a>
-    </li>
-    <%if(!userData || typeof(userData) == "undefined"){%>
+<!--<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/images/logo.png" alt="" width="80" height="80" class="d-inline-block align-text-top"> FoxHyn Deník
+        </a>
+    </div>
+    <ul>
         <li>
-            <a href="/auth/login">Login</a>
+            <a href="/">Home</a>
         </li>
-        <% } else { %>
+        <%if(!userData || typeof(userData) == "undefined"){%>
             <li>
-                <a href="/auth/logout">Logout</a>
+                <a href="/auth/login">Login</a>
             </li>
-            <li>
-                <a href="/pessos/denik/denni">Denní záznam</a>
-            </li>
-            <li>
-                <a href="/pessos/denik/tydenni">Týdení záznam</a>
-            </li>
-            <li>
-                <a href="/pessos/denik/zaznamy">Záznamy</a>
-            </li>
-            <%if(userData.upermissions == "admin"){%>
+            <% } else { %>
                 <li>
-                    <a href="/admin/menu">Administrace</a>
+                    <a href="/auth/logout">Logout</a>
                 </li>
-                <% } %>
-                    <%if(userData.upermissions == "cvicitel"){%>
-                        <li>
-                            <a href="/admin/cvicitel">Cvičitel</a>
-                        </li>
-                        <% }} %>
+                <li>
+                    <a href="/pessos/denik/denni">Denní záznam</a>
+                </li>
+                <li>
+                    <a href="/pessos/denik/tydenni">Týdení záznam</a>
+                </li>
+                <li>
+                    <a href="/pessos/denik/zaznamy">Záznamy</a>
+                </li>
+                <%if(userData.upermissions == "admin"){%>
+                    <li>
+                        <a href="/admin/menu">Administrace</a>
+                    </li>
+                    <% } %>
+                        <%if(userData.upermissions == "cvicitel"){%>
+                            <li>
+                                <a href="/admin/cvicitel">Cvičitel</a>
+                            </li>
+                            <% }} %>
 
-</ul>
+    </ul>
+</nav>
+-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/images/logo.png" alt="" width="60" height="60" class="d-inline-block align-text-center p-2">FoxHyn Deník
+        </a>
+
+        <span>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="home" class="nav-link" href="/">Home</a>
+                    </li>
+                    <%if(!userData || typeof(userData) == "undefined"){%>
+                        <li class="nav-item">
+                            <a id="login" class="nav-link " href="/auth/login">Login</a>
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a id="logout" class="nav-link " href="/auth/logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="denni" class="nav-link " href="/pessos/denik/denni">Denní záznam</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tydenni" class="nav-link " href="/pessos/denik/tydenni">Týdení záznam</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="zaznamy" class="nav-link " href="/pessos/denik/zaznamy">Záznamy</a>
+                            </li>
+                            <%if(userData.upermissions == "admin"){%>
+                                <li class="nav-item">
+                                    <a id="administrace" class="nav-link " href="/admin/menu">Administrace</a>
+                                </li>
+                                <% } %>
+                                    <%if(userData.upermissions == "cvicitel" || userData.upermissions == "admin"){%>
+                                        <li class="nav-item">
+                                            <a id="cvicitelMenu" class="nav-link " href="/admin/cvicitel">Cvičitel</a>
+                                        </li>
+                                        <% }} %>
+            
+                </ul>
+            </div>
+        </span>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            console.log(document.URL);
+            if (document.URL.includes('/admin/menu')) {
+                document.getElementById("administrace").className += 'active';
+            } else if (document.URL.includes('/admin/cvicitel')) {
+                document.getElementById("cvicitelMenu").className += 'active';
+            } else if (document.URL.includes('/denik/zaznamy')) {
+                document.getElementById("zaznamy").className += 'active';
+            } else if (document.URL.includes('/denik/tydenni')) {
+                document.getElementById("tydenni").className += 'active';
+            } else if (document.URL.includes('/denik/denni')) {
+                document.getElementById("denni").className += 'active';
+            } else if (document.URL.includes('/auth/loguin')) {
+                document.getElementById("login").className += 'active';
+            } else if (document.URL.includes('/auth/logout')) {
+                document.getElementById("logout").className += 'active';
+            } else {
+                document.getElementById("home").className += 'active';
+            }
+        })
+    </script>
+</nav>

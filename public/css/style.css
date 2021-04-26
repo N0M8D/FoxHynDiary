@@ -223,6 +223,8 @@ input[type=submit]:hover {
     font-weight: bold;
 }
 
+
+/*
 nav {
     background-color: #a74fb3;
     color: #fff;
@@ -260,6 +262,7 @@ nav li a:hover {
     -moz-user-select: none;
     user-select: none;
 }
+*/
 
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {

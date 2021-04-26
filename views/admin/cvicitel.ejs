@@ -35,13 +35,12 @@
                             </div>
                             <% } %>
     </div>
-
     <!-- Main part -->
     <main class="flex-shrink-0 p-5">
         <h4>CVIČITEL MENU</h4>
         <div class="container">
-            <table class='table table-bordered table-condensed table-striped table-hover'>
-                <tbody>
+            <table id="PsiTABLE" class='table table-bordered table-condensed table-striped table-hover'>
+                <thead>
                     <tr>
                         <th>Pes</th>
                         <th>Rasa</th>
@@ -49,20 +48,26 @@
                         <th>Cvičitel</th>
                         <th>Akce</th>
                     </tr>
+                </thead>
+                <tbody>
                     <%
                             if(dogs.length != 0 && typeof dogs != "undefined"){
                                 var i = 1;
                             dogs.forEach(function(data){ if (data != "") {
                             %>
-                        <tr id="<%=data.id %>" class="clickable-row" data-href="/pessos/profile?id=<%=data.uid %>">
+                        <tr id="PesRowID-<%=i %>" onclick="prclick()">
+
                             <td class="row-data">
                                 <%=data.name %>
+
                             </td>
                             <td class="row-data">
                                 <%=data.race %>
                             </td>
                             <td class="row-data">
-                                <%=data.uname %>
+                                <a class="text-danger" href="/pessos/profile?id=<%=data.uid %>" style="text-decoration: none;">
+                                    <%=data.uname %>
+                                </a>
                             </td>
                             <td class="row-data">
                                 <% if (data.cname != null) { %>
@@ -71,33 +76,33 @@
                                             Nepřiřazen
                                             <% } %>
                             </td>
+                            <td hidden class="activity">
+                                <%=data.allowedActivity%>
+                            </td>
                             <td>
                                 <% if(data.cname != null && data.cname != "" && data.cname != "Nepřiřazen")
                                 { %>
                                     <form action="/admin/cvicitel/unassign" method="post">
                                         <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="button" class="btn btn-danger">
                                         Odebrat cvičitele
                                     </button>
                                     </form>
                                     <%} else if(userData.upermissions == "admin") { %>
-                                        <button type="submit " class="btn btn-success" data-toggle="modal" data-target="#myModal_<%=data.id %>">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal_<%=i%>">
                                         Přidat cvičitele
                                     </button>
                                         <!-- The Modal -->
-                                        <div class="modal" id="myModal_<%=data.id %>">
+                                        <div class="modal" id="myModal_<%=i %>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
-                                                    <!-- Modal Header -->
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Výběr cvičitele</h4>
                                                         <button type="button" class="btn close" data-dismiss="modal">&times;</button>
                                                     </div>
 
-                                                    <!-- Modal body -->
                                                     <div class="modal-body">
-
                                                         <table class='table table-bordered'>
                                                             <tbody>
                                                                 <tr>
@@ -112,7 +117,7 @@
                                                                             <form action="/admin/cvicitel/assign" method="post">
                                                                                 <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
                                                                                 <input type="text" hidden id="cid" name="cid" value="<%=mdata.id %>" />
-                                                                                <button class="btn btn-secondary" style="width: 100%"><%=mdata.name %></button>
+                                                                                <button class="btn btn-secondary" type="button" style="width: 100%"><%=mdata.name %></button>
                                                                             </form>
                                                                         </td>
                                                                     </tr>
@@ -120,9 +125,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <!-- Modal footer -->
                                                     <div class="modal-footer">
-
                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
                                                     </div>
 
@@ -131,13 +134,14 @@
                                         </div>
 
                                         <!-- The Modal -->
+
                                         <% } else if (userData.upermissions == "cvicitel") { %>
                                             <form action="/admin/cvicitel/assign" method="post">
                                                 <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
                                                 <input type="text" hidden id="cid" name="cid" value="<%=userData.uid %>" />
                                                 <button type="submit" class="btn btn-success">
-                                        Převzít
-                                    </button>
+                                                    Převzít
+                                                 </button>
                                             </form>
                                             <% } %>
                             </td>
@@ -147,61 +151,154 @@
                                     "NO DATA"
                                 </td>
                                 <% } %>
+
                         </tr>
                 </tbody>
             </table>
         </div>
-
-        <div class="container mt-5">
-            <form action="/admin/cvicitel/addactivity" method="post">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Název aktivity:</span>
-                    </div>
-                    <input name="name" id="name" type="text" class="form-control" />
-                    <button class="btn btn-outline-secondary" type="submit">Přidat aktivitu</button>
-                </div>
-            </form>
-
-            <table class='table table-bordered table-condensed table-striped table-hover mt-3'>
-                <tbody>
-                    <tr>
-                        <th colspan="2">Název aktivity</th>
-                    </tr>
-
-                    <%
+        <table>
+            <div class="container mt-5">
+                <table id="allowedActivityTABLE" class='table table-bordered table-condensed table-hover mt-3'>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Aktivity přidělené k psovi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%  var i = 1;
                             if(activity.length != 0 && typeof activity != "undefined"){
                                 activity.forEach(function(data){
                             %>
-                        <tr></tr>
-                        <td class="row-data">
-                            <%=data.name%>
-                        </td>
-                        <td style="text-align: right">
-                            <form action="/admin/cvicitel/removeactivity" method="post">
-                                <input name="id" id="id" type="text" class="form-control" hidden value="<%=data.id%>" />
-                                <button class="btn btn-danger" type="submit">ODSTRANIT</button>
-                            </form>
-                        </td>
-                        <%})} else {  %>
-                            <td colspan="2">
-                                NO DATA
-                            </td>
+                            <tr id="allowedActivityID-<%=i%>" class="">
+                                <td id="name" class="row-data">
+                                    <%=data.name%>
+                                </td>
+                                <td style="text-align: right">
+                                    <form action="/admin/cvicitel/removeactivity" method="post">
+                                        <input name="id" id="id" type="text" class="form-control" hidden value="<%=data.id%>" />
+                                        <div class="form-check form-switch">
+
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="flexSwitchCheckDefault">
+                                        </div>
+                                    </form>
+                                </td>
+                                <%i++;})} else {  %>
+                                    <td colspan="2">
+                                        NO DATA
+                                    </td>
+
                             </tr>
                             <%}%>
+                    </tbody>
+                </table>
+            </div>
+            <script type="text/javascript">
+                function prclick() {
+                    var rowId =
+                        event.target.parentNode.id;
+                    //this gives id of tr whose button was clicked
+                    // var data =
+                    //document.getElementById(rowId).querySelectorAll(".row-data");
 
-                </tbody>
-            </table>
-        </div>
+                    var table = document.getElementById("PsiTABLE");
+                    var tbodyRowCount = table.tBodies[0].rows.length;
+                    for (var i = 0; i <= tbodyRowCount; i++) {
+                        if (document.getElementById('PesRowID-' + i)) {
+                            document.getElementById('PesRowID-' + i).className = '';
+                        }
+                    }
+                    document.getElementById(rowId).className = 'table-primary';
+                    var data =
+                        document.getElementById(rowId).querySelectorAll(".activity");
+                    var name = data[0].innerHTML;
+                    //console.log(name);
 
-        <script type="text/javascript">
-            $(document).ready(function($) {
-                $(".clickable-row").click(function() {
-                    window.document.location = $(this).data('href');
+
+                    var aList = name.split('|');
+                    for (var i = 0; i < aList.length; i++) {
+                        aList[i] = aList[i].trim()
+                    }
+                    //console.log(aList);
+
+                    var Atable = document.getElementById("allowedActivityTABLE");
+                    var AtbodyRowCount = Atable.tBodies[0].rows.length;
+                    //console.log(AtbodyRowCount);
+                    var Adata = document.getElementById('allowedActivityID-1').querySelectorAll(".row-data");
+                    //console.log(Adata[0].innerHTML);
+                    if (aList.includes(Adata[0].innerHTML.trim())) {
+                        console.log("ALLOWED");
+                    }
+                }
+
+
+                $(function() {
+                    // General/modular function for status logging
+                    var checkboxChecker = function() {
+                        $('table[id="allowedActivityTABLE"] tr').each(function(i) {
+                            // Only check rows that contain a checkbox
+                            var $chkbox = $(this).find('input[type="checkbox"]');
+                            if ($chkbox.length) {
+                                var status = $chkbox.prop('checked');
+                                if (status == true) {
+                                    document.getElementById('allowedActivityID-' + i).className = 'table-success';
+                                } else {
+                                    document.getElementById('allowedActivityID-' + i).className = '';
+                                }
+                            }
+                        });
+                    };
+
+                    // Check checkboxes status on DOMready
+                    checkboxChecker();
+
+                    // Check again when checkboxes states are changed
+                    $('table[id="allowedActivityTABLE"] tr input[type="checkbox"]').on('change', function() {
+                        checkboxChecker();
+                    });
                 });
-            });
-        </script>
+            </script>
 
+            <!-- Aktivity a editace globálních aktivit -->
+            <div class="container mt-5">
+                <form action="/admin/cvicitel/addactivity" method="post">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Název aktivity:</span>
+                        </div>
+                        <input name="name" id="name" type="text" class="form-control" />
+                        <button class="btn btn-outline-secondary" type="submit">Přidat aktivitu</button>
+                    </div>
+                </form>
+
+                <table class='table table-bordered table-condensed table-striped table-hover mt-3'>
+                    <tbody>
+                        <tr>
+                            <th colspan="2">Název aktivity</th>
+                        </tr>
+
+                        <%
+                            if(activity.length != 0 && typeof activity != "undefined"){
+                                activity.forEach(function(data){
+                            %>
+                            <tr>
+                                <td class="row-data">
+                                    <%=data.name%>
+                                </td>
+                                <td style="text-align: right">
+                                    <form action="/admin/cvicitel/removeactivity" method="post">
+                                        <input name="id" id="id" type="text" class="form-control" hidden value="<%=data.id%>" />
+                                        <button class="btn btn-danger" type="submit">ODSTRANIT</button>
+                                    </form>
+                                </td>
+                                <%})} else {  %>
+                                    <td colspan="2">
+                                        NO DATA
+                                    </td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
     </main>
     <!-- Main part -->
 
@@ -217,7 +314,6 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
-
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>

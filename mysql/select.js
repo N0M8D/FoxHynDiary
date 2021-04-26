@@ -74,7 +74,7 @@ exports.dogsOfUser = function(req, callback) {
 }
 
 exports.fromDogsForCvicitel = function(callback) {
-    db.query('SELECT dogs.* ,u.id AS uid, u.name AS uname, c.name AS cname FROM c1pessos.dogs ' +
+    db.query('SELECT dogs.* ,u.id AS uid, u.name AS uname, c.name AS cname, dogs.allowedActivity FROM c1pessos.dogs ' +
         'INNER JOIN users AS u ' +
         'ON u.id = dogs.pid ' +
         'LEFT JOIN users AS c ' +

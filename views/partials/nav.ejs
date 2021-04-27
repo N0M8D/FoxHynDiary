@@ -1,44 +1,3 @@
-<!--<nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="/images/logo.png" alt="" width="80" height="80" class="d-inline-block align-text-top"> FoxHyn Deník
-        </a>
-    </div>
-    <ul>
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <%if(!userData || typeof(userData) == "undefined"){%>
-            <li>
-                <a href="/auth/login">Login</a>
-            </li>
-            <% } else { %>
-                <li>
-                    <a href="/auth/logout">Logout</a>
-                </li>
-                <li>
-                    <a href="/pessos/denik/denni">Denní záznam</a>
-                </li>
-                <li>
-                    <a href="/pessos/denik/tydenni">Týdení záznam</a>
-                </li>
-                <li>
-                    <a href="/pessos/denik/zaznamy">Záznamy</a>
-                </li>
-                <%if(userData.upermissions == "admin"){%>
-                    <li>
-                        <a href="/admin/menu">Administrace</a>
-                    </li>
-                    <% } %>
-                        <%if(userData.upermissions == "cvicitel"){%>
-                            <li>
-                                <a href="/admin/cvicitel">Cvičitel</a>
-                            </li>
-                            <% }} %>
-
-    </ul>
-</nav>
--->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -48,9 +7,9 @@
             <span class="navbar-toggler-icon"></span>
           </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a id="home" class="nav-link" href="/">Home</a>
+                    <a id="home" class="nav-link " href="/">Home</a>
                 </li>
                 <%if(!userData || typeof(userData) == "undefined"){%>
                     <li class="nav-item">
@@ -71,7 +30,7 @@
                         </li>
                         <%if(userData.upermissions == "admin"){%>
                             <li class="nav-item">
-                                <a id="administrace" class="nav-link " href="/admin/menu">Administrace</a>
+                                <a id="administrace" class="nav-link" href="/admin/menu">Administrace</a>
                             </li>
                             <% } %>
                                 <%if(userData.upermissions == "cvicitel" || userData.upermissions == "admin"){%>

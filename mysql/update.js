@@ -1,6 +1,23 @@
 const db = require("../database");
 
 
+exports.setAllowedActivity = function(req, allowedActivity, next) {
+    const { dogIDsent } = req.body;
+    db.query('UPDATE dogs SET ? WHERE id = ?', [{ allowedActivity },
+            dogIDsent
+        ],
+        async(error) => {
+            if (error) {
+                console.log(error);
+                req.flash('error', 'Chyba ukládání dat!');
+                next();
+            } else {
+                req.flash('message', 'Aktivity uloženy');
+                next();
+            }
+        })
+}
+
 exports.completeGoal = function(req, next) {
     const { gid, bid } = req.body;
     db.query('UPDATE plans_small SET status = 1 WHERE id = ?', gid,

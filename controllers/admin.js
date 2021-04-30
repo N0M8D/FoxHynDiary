@@ -5,6 +5,26 @@ const mySqlUpdate = require('../mysql/update');
 const mySqlDelete = require('../mysql/remove');
 const authController = require('../controllers/auth');
 
+exports.saveActivity = (req, res) => {
+    var allowedActivity = "";
+    const data = req.body;
+    for (var i = 0; i <= Object.keys(data).length; i++) {
+        if (data['id-' + i] != undefined) {
+            //console.log('AID: ' + data['id-' + i]);
+            //console.log('STATUS: ' + data['allowed-' + i]);
+            if (data['allowed-' + i] == "ALLOWED") {
+                allowedActivity += data['id-' + i] + '|';
+            }
+        }
+
+    }
+    mySqlUpdate.setAllowedActivity(req, allowedActivity, function() {
+            //console.log(allowedActivity)
+            return res.redirect('cvicitel');
+        })
+        //return res.redirect('cvicitel');
+
+}
 
 exports.deleteActivity = (req, res) => {
     mySqlDelete.removeActivity(req, function() {

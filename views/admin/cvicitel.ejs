@@ -79,6 +79,9 @@
                             <td hidden class="activity">
                                 <%=data.allowedActivity%>
                             </td>
+                            <td hidden class="dogID">
+                                <%=data.id%>
+                            </td>
                             <td>
                                 <% if(data.cname != null && data.cname != "" && data.cname != "Nepřiřazen")
                                 { %>
@@ -158,44 +161,50 @@
         </div>
         <table>
             <div class="container mt-5">
-                <table id="allowedActivityTABLE" class='table table-bordered table-condensed table-hover mt-3'>
-                    <thead>
-                        <tr>
-                            <th colspan="2">Aktivity přidělené k psovi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%  var i = 1;
-                            if(activity.length != 0 && typeof activity != "undefined"){
-                                activity.forEach(function(data){
-                            %>
-                            <tr id="allowedActivityID-<%=i%>" class="">
-                                <td id="name" class="row-data">
-                                    <%=data.name%>
-                                </td>
-                                <td style="text-align: right">
-                                    <form action="/admin/cvicitel/removeactivity" method="post">
-                                        <input name="id" id="id" type="text" class="form-control" hidden value="<%=data.id%>" />
-                                        <div class="form-check form-switch">
-
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="flexSwitchCheckDefault">
-                                        </div>
-                                    </form>
-                                </td>
-                                <%i++;})} else {  %>
-                                    <td colspan="2">
-                                        NO DATA
-                                    </td>
-
+                <form action="/admin/cvicitel/saveactivity" method="post">
+                    <input name="dogIDsent" id="dogIDsent" type="text" class="form-control row-data" hidden value="" />
+                    <table id="allowedActivityTABLE" class='table table-bordered table-condensed table-hover mt-3'>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Aktivity přidělené k psovi</th>
                             </tr>
-                            <%}%>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <%  var i = 1;
+                            if(activity.length != 0 && typeof activity != "undefined"){
+                                activity.forEach(function(adata){
+                            %>
+                                <tr id="allowedActivityID-<%=i%>" class="">
+                                    <td id="name" class="row-data">
+                                        <%=adata.name%>
+                                    </td>
+                                    <td style="text-align: right">
+
+                                        <input name="id-<%=i%>" id="id-<%=i%>" type="text" class="form-control row-data" hidden value="<%=adata.id%>" />
+                                        <input name="allowed-<%=i%>" id="allowed-<%=i%>" type="text" class="form-control" hidden value="DISSALLOWED" />
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault-<%=i%>" name="flexSwitchCheckDefault-<%=i%>">
+                                        </div>
+
+                                    </td>
+                                    <%i++;})} else {  %>
+                                        <td colspan="2">
+                                            NO DATA
+                                        </td>
+
+                                </tr>
+
+                                <%}%>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary ">Uložit aktivity</button>
+                </form>
             </div>
             <script type="text/javascript">
                 function prclick() {
                     var rowId =
                         event.target.parentNode.id;
+
                     //this gives id of tr whose button was clicked
                     // var data =
                     //document.getElementById(rowId).querySelectorAll(".row-data");
@@ -211,6 +220,11 @@
                     var data =
                         document.getElementById(rowId).querySelectorAll(".activity");
                     var name = data[0].innerHTML;
+
+                    var ddata = document.getElementById(rowId).querySelectorAll(".dogID");
+
+                    console.log("DID: " + ddata[0].innerHTML.trim());
+                    document.getElementById("dogIDsent").value = ddata[0].innerHTML.trim();
                     //console.log(name);
 
 
@@ -223,15 +237,28 @@
                     var Atable = document.getElementById("allowedActivityTABLE");
                     var AtbodyRowCount = Atable.tBodies[0].rows.length;
                     //console.log(AtbodyRowCount);
-                    var Adata = document.getElementById('allowedActivityID-1').querySelectorAll(".row-data");
-                    //console.log(Adata[0].innerHTML);
-                    if (aList.includes(Adata[0].innerHTML.trim())) {
-                        console.log("ALLOWED");
+
+                    for (var i = 1; i <= AtbodyRowCount; i++) {
+                        var Ndata = document.getElementById('id-' + i).value;
+
+
+                        //var Adata = document.getElementById('allowedActivityID-' + i).querySelectorAll(".row-data");
+                        //console.log('ID: ' + Adata[0].innerHTML.trim());
+                        if (aList.includes(Ndata)) {
+                            //console.log("ALLOWED");
+                            document.getElementById("flexSwitchCheckDefault-" + i).checked = true;
+                            //document.getElementById("allowed-" + i).value = "ALLOWED";
+                        } else {
+                            document.getElementById("flexSwitchCheckDefault-" + i).checked = false;
+                            //document.getElementById("allowed-" + i).value = "DISSALLOWED";
+                            //console.log('NOPE');
+                        }
+                        checkMe()
+
                     }
                 }
 
-
-                $(function() {
+                function checkMe() {
                     // General/modular function for status logging
                     var checkboxChecker = function() {
                         $('table[id="allowedActivityTABLE"] tr').each(function(i) {
@@ -241,8 +268,10 @@
                                 var status = $chkbox.prop('checked');
                                 if (status == true) {
                                     document.getElementById('allowedActivityID-' + i).className = 'table-success';
+                                    document.getElementById("allowed-" + i).value = "ALLOWED"
                                 } else {
                                     document.getElementById('allowedActivityID-' + i).className = '';
+                                    document.getElementById("allowed-" + i).value = "DISSALLOWED";
                                 }
                             }
                         });
@@ -255,7 +284,7 @@
                     $('table[id="allowedActivityTABLE"] tr input[type="checkbox"]').on('change', function() {
                         checkboxChecker();
                     });
-                });
+                }
             </script>
 
             <!-- Aktivity a editace globálních aktivit -->

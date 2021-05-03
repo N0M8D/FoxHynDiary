@@ -2,6 +2,30 @@ const db = require("../database");
 
 
 
+
+exports.dogsActivity = function(activities, callback) {
+    db.query('SELECT * FROM activity WHERE id IN (?) ', [activities],
+        async(error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                callback(results);
+            }
+        })
+}
+
+exports.allowedActivity = function(did, callback) {
+    db.query('SELECT allowedActivity FROM dogs WHERE id = ? ',
+        did,
+        async(error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                callback(results);
+            }
+        })
+}
+
 exports.allActivity = function(callback) {
     db.query('SELECT * FROM activity ',
         async(error, results) => {

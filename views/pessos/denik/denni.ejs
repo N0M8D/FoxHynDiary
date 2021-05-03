@@ -45,10 +45,13 @@
                 <label class="input-group-text" for="inputGroupSelect01">Druh aktivity:</label>
                 <select class="form-select" id="inputGroupSelect01">
                   <option selected>Vyberte...</option>
-                  <option value="1">Cvičení doma</option>
-                  <option value="2">Cvičení venku</option>
-                  <option value="3">Agility</option>
-                  <option value="3">Výstava</option>
+                  <%
+                  if(allowedActivities.length != 0 && typeof allowedActivities != "undefined"){
+                      var i = 1;
+                    allowedActivities.forEach(function(data){
+                  %>
+                  <option value="<%= i %>"><%=data.name%></option>
+                  <%i++})} %>
                   </select>
             </div>
 

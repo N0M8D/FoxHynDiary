@@ -12,6 +12,17 @@ router.use('/denik/tydenni', authController.checkToken, denikController.loadTyde
 
 router.use('/denik/zaznamy', authController.checkToken, denikController.loadZaznamyDashboard);
 
+router.use('/denik/chooseAdog', authController.checkToken, denikController.chooseAdog);
+
+router.post('/denik/rozcestnik', function(req, res) {
+    if (req.body.btn == "tydenni") {
+        //console.log("HERE");
+        denikController.loadTydenniDashboard(req, res);
+    } else {
+        denikController.loadDenniDashboard(req, res);
+    }
+})
+
 /*
 router.get('/plany', function(req, res, next) {
     res.render('pessos/plany', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });

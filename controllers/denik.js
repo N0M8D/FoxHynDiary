@@ -7,8 +7,11 @@ const mySqlUpdate = require('../mysql/update');
 const mySqlDelete = require('../mysql/remove');
 
 
-exports.loadDenniDashboard = function(req, res) {
 
+
+
+
+exports.loadDenniDashboard = function(req, res) {
     const did = 2;
     mySqlSelect.allowedActivity(did, function(callback) {
 
@@ -16,7 +19,7 @@ exports.loadDenniDashboard = function(req, res) {
         activities = activities.slice(0, -1);
         //console.log(activities);
         mySqlSelect.dogsActivity(activities, function(allowedActivities) {
-            console.log(allowedActivities);
+            //console.log(allowedActivities);
             res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, allowedActivities });
         })
     })
@@ -28,4 +31,10 @@ exports.loadTydenniDashboard = function(req, res) {
 
 exports.loadZaznamyDashboard = function(req, res) {
     res.render('pessos/denik/zaznamy', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
+}
+
+exports.chooseAdog = function(req, res) {
+    mySqlSelect.ownedDogs(req, function(dogs) {
+        res.render('pessos/denik/chooseAdog', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, dogs });
+    })
 }

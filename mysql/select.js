@@ -86,6 +86,17 @@ exports.specificUser = function(req, callback) {
         });
 }
 
+exports.ownedDogs = function(req, callback) {
+    db.query('SELECT * FROM dogs WHERE ? ', { pid: req.userData.uid },
+        async(error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                callback(results);
+            }
+        });
+}
+
 exports.dogsOfUser = function(req, callback) {
     db.query('SELECT * FROM dogs WHERE ? ', { pid: req.query.id },
         async(error, results) => {

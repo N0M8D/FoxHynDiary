@@ -6,9 +6,9 @@ const authController = require('../controllers/auth');
 var denikController = require('../controllers/denik');
 
 
-router.use('/denik/denni', authController.checkToken, denikController.loadDenniDashboard);
+//router.use('/denik/denni', authController.checkToken, denikController.loadDenniDashboard);
 
-router.use('/denik/tydenni', authController.checkToken, denikController.loadTydenniDashboard);
+//router.use('/denik/tydenni', authController.checkToken, denikController.loadTydenniDashboard);
 
 router.use('/denik/zaznamy', authController.checkToken, denikController.loadZaznamyDashboard);
 

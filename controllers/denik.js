@@ -8,11 +8,8 @@ const mySqlDelete = require('../mysql/remove');
 
 
 
-
-
-
 exports.loadDenniDashboard = function(req, res) {
-    const did = 2;
+    const did = req.body.dog;
     mySqlSelect.allowedActivity(did, function(callback) {
 
         var activities = callback[0].allowedActivity.split('|');

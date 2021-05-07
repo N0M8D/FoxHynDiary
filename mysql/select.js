@@ -46,7 +46,9 @@ exports.smallPlansForUser = function(req, callback) {
         'LEFT JOIN plans_big ' +
         'ON plans_small.bid = plans_big.id ' +
         'LEFT JOIN dogs ' +
-        'ON did = dogs.id;', async(error, results) => {
+        'ON did = dogs.id ' +
+        'WHERE did = ?', req.body.did,
+        async(error, results) => {
             if (error) {
                 console.log(error);
             } else {
@@ -56,11 +58,14 @@ exports.smallPlansForUser = function(req, callback) {
 }
 
 exports.bigPlansForUser = function(req, callback) {
+
     db.query('SELECT plans_big.id, plans_big.name, plans_big.dateend, ' +
         'dogs.name AS dname, plans_big.progress ' +
         'FROM c1pessos.plans_big ' +
         'LEFT JOIN dogs ' +
-        'ON did = dogs.id;', async(error, results) => {
+        'ON did = dogs.id ' +
+        'WHERE did = ?', req.body.did,
+        async(error, results) => {
             if (error) {
                 console.log(error);
             } else {

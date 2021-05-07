@@ -5,6 +5,24 @@ const mySqlUpdate = require('../mysql/update');
 const mySqlDelete = require('../mysql/remove');
 const authController = require('../controllers/auth');
 
+
+exports.createPlansLoad = function(req, res) {
+    mySqlSelect.bigPlansForUser(req, function(bresult) {
+        mySqlSelect.smallPlansForUser(req,
+            function(sresult) {
+                res.render('pessos/createPlans', {
+                    info: req.flash('info'),
+                    error: req.flash('error'),
+                    message: req.flash('message'),
+                    userData: req.userData,
+                    smallPlans: sresult,
+                    bigPlans: bresult
+                });
+            })
+    })
+}
+
+
 exports.saveActivity = (req, res) => {
     var allowedActivity = "";
     const data = req.body;

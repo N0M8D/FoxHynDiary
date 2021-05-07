@@ -14,11 +14,14 @@ exports.loadDenniDashboard = function(req, res) {
 
         var activities = callback[0].allowedActivity.split('|');
         activities = activities.slice(0, -1);
-        //console.log(activities);
+        if (activities.length <= 0) {
+            activities = [0]
+        }
+
         mySqlSelect.dogsActivity(activities, function(allowedActivities) {
-            //console.log(allowedActivities);
             res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, allowedActivities });
         })
+
     })
 }
 

@@ -83,11 +83,14 @@
                                 <%=data.id%>
                             </td>
                             <td>
-                                <% if(data.cname != null && data.cname != "" && data.cname != "Nepřiřazen")
+                                <% if(data.cname != null && data.cname != "" && data.cname != "Nepřiřazen" )
                                 { %>
                                     <form action="/admin/cvicitel/unassign" method="post">
                                         <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
-                                        <button type="button" class="btn btn-danger">
+                                        <% if(data.cid == userData.uid || userData.upermissions == "admin"){ %>
+                                            <button type="button" class="btn btn-danger"> <%} else { %>
+                                            <button type="button"  class="btn btn-danger disabled ">
+                                                <%}%>
                                         Odebrat cvičitele
                                     </button>
                                     </form>
@@ -120,7 +123,7 @@
                                                                             <form action="/admin/cvicitel/assign" method="post">
                                                                                 <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
                                                                                 <input type="text" hidden id="cid" name="cid" value="<%=mdata.id %>" />
-                                                                                <button class="btn btn-secondary" type="button" style="width: 100%"><%=mdata.name %></button>
+                                                                                <button class="btn btn-secondary" type="submit" style="width: 100%"><%=mdata.name %></button>
                                                                             </form>
                                                                         </td>
                                                                     </tr>
@@ -129,7 +132,7 @@
                                                         </table>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                                                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
                                                     </div>
 
                                                 </div>
@@ -146,7 +149,14 @@
                                                     Převzít
                                                  </button>
                                             </form>
-                                            <% } %>
+                                            <% } if(userData.uid == data.cid) { %>
+                                                <form action="/admin/cvicitel/createPlans" method="post">
+                                                    <input type="text" hidden id="did" name="did" value="<%=data.id %>" />
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                    Zadat plány nebo úkoly
+                                                 </button>
+                                                </form>
+                                                <%}%>
                             </td>
 
                             <% i++;}})} else {  %>

@@ -13,6 +13,8 @@ router.post('/cvicitel/removeactivity', adminController.deleteActivity);
 
 router.post('/cvicitel/addactivity', adminController.addActivity);
 
+router.post('/cvicitel/createPlans', adminController.createPlansLoad);
+
 router.post('/cvicitel/assign', adminController.assigneCvic);
 
 router.post('/cvicitel/unassign', adminController.unassignCvic);

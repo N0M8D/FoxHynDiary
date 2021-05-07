@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+
+<body>
+    <nav>
+        <%- include('../partials/nav.ejs'); %>
+    </nav>
+
+    <div class="UniPage-div container">
+
+        <!-- Krátkodobé plánování -->
+        <h4>Krátkodobé / malé plány a cíle</h4>
+        <table class="table table-sm" style="max-width: 800px;">
+            <thead>
+                <tr>
+                    <th scope=" col ">#</th>
+                    <th scope="col ">Cíl</th>
+                    <th scope="col ">Pes</th>
+                    <th scope="col ">Datum</th>
+                    <th scope="col ">Dlouhodobý cíl</th>
+                    <th scope="col ">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    if(smallPlans.length != 0 && typeof smallPlans != "undefined"){ 
+                        var i = 1;                           
+                        smallPlans.forEach(function(data){
+                        %>
+
+                    <tr <% if(data.status==1 ){%> class="table-success"
+                        <%} else if (data.status == 2){%> class="table-warning"
+                            <%} else if (data.status == 3) {%> class="table-danger"
+                                <%} else if (data.status == 4) {%> class="table-secondary"
+                                    <%}%> id="smallPlan-
+                                        <%=data.id %>">
+                                            <th scope="row ">
+                                                <%= i %>
+                                            </th>
+                                            <td>
+                                                <%=data.name %>
+                                            </td>
+                                            <td>
+                                                <%=data.dname %>
+                                            </td>
+                                            <td>
+                                                <%=data.dateend.getDate() + '.' + (data.dateend.getMonth()+1) + '.' + data.dateend.getFullYear()%>
+                                            </td>
+                                            <td>
+                                                <%=data.bname %>
+                                            </td>
+                                            <td>
+                                                <form action="/pessos/completeGoal" method="post">
+                                                    <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
+                                                    <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                                    <% if(data.status != 2 && data.status != 0) { %>
+                                                        <button class="btn btn-success disabled fixed">Splněno</button>
+                                                        <%} else { %> <button class="btn btn-success fixed">Splněno</button>
+                                                            <%}%>
+                                                </form>
+                                                <form action="/pessos/deleteSP" method="post">
+                                                    <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
+                                                    <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                                    <button class="btn btn-danger btn-sm fixed">Smazat plán</button>
+                                                </form>
+                                            </td>
+
+                    </tr>
+                    <% i++;})} %>
+                        <td colspan="6">
+                            <button class="btn btn-primary text-center fixed">Přidat samostatný malý plán</button>
+                        </td>
+            </tbody>
+        </table>
+
+
+
+        <!-- Dlouhodobé plánování -->
+        <h4 style="margin-top:30px">Dlouhodeobé / velké plány a cíle</h4>
+        <table class="table table-sm " style="max-width: 800px;">
+            <thead>
+                <tr>
+                    <th scope="col ">#</th>
+                    <th scope="col ">Cíl</th>
+                    <th scope="col ">Pes</th>
+                    <th scope="col ">Datum</th>
+                    <th scope="col ">Pokrok</th>
+                    <th scope="col ">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    if(bigPlans.length != 0 && typeof bigPlans != "undefined"){
+                        var i = 1;                           
+                        bigPlans.forEach(function(data){ 
+                         var num = 0; 
+                          smallPlans.forEach(function(e){ 
+                                if(e.bid == data.id) {
+                               num++;
+                             }
+                          });
+                         var valuenow = Number(data.progress/num * 100)
+                         %>
+
+                    <tr id="bigPlan-<%=data.id %>" <% if(num==data.progress){%> class="table-success"
+                        <%}%>>
+                            <th scope="row ">
+                                <%= i %>
+                            </th>
+                            <td>
+                                <%=data.name %>
+                            </td>
+                            <td>
+                                <%=data.dname %>
+                            </td>
+                            <td>
+                                <%=data.dateend.getDate() + '.' + (data.dateend.getMonth()+1) + '.' + data.dateend.getFullYear()%>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <input hidden id="help<%=data.id %>" value="<%=valuenow%>"></input>
+                                    <div id="myBar<%=data.id %>" style="width: 0%" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<%=valuenow%>" aria-valuemin="0" aria-valuemax="100">
+                                        <%=data.progress %> /
+                                            <%=num %>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function progress() {
+                                        var i = 1;
+                                        var elementExists = document.getElementById("help" + i);
+                                        while (elementExists) {
+                                            var valuenow = document.querySelector("#help" + i).value;
+                                            document.getElementById('myBar' + i).style.width = valuenow + '%';
+                                            i++;
+                                            var elementExists = document.getElementById("help" + i);
+                                        }
+                                        //document.getElementById('myBar2').style.width = 25 + '%';
+                                    }
+                                    progress();
+                                </script>
+
+                            </td>
+                            <td>
+                                <div class="fixed">
+                                    <form action="/pessos/deleteBP" method="post">
+                                        <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
+                                        <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                        <button class="btn btn-danger btn-sm fixed">Smazat plán</button>
+                                    </form>
+                                    <form action="/pessos/addSPforBP" method="post">
+                                        <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
+                                        <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                        <button class="btn btn-success btn-sm fixed mt-1">Přidat malý plán</button>
+                                    </form>
+                                </div>
+                            </td>
+                    </tr>
+                    <% i++;})} %>
+                        <td colspan="6">
+                            <button class="btn btn-primary text-center fixed">Přidat velký plán</button>
+                        </td>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="text-center text-white fixed-bottom " style="background-color: #21081a; ">
+        <%- include('../partials/footer.ejs'); %>
+    </footer>
+    <!-- Footer -->
+
+</body>
+
+</html>

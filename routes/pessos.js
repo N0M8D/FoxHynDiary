@@ -1,7 +1,7 @@
 var express = require('express');
 const router = express.Router();
 const mySqlSelect = require('../mysql/select');
-const plany = require('../controllers/plany');
+const planyController = require('../controllers/plany');
 const authController = require('../controllers/auth');
 var denikController = require('../controllers/denik');
 
@@ -23,11 +23,13 @@ router.post('/denik/rozcestnik', function(req, res) {
     }
 })
 
-/*
-router.get('/plany', function(req, res, next) {
-    res.render('pessos/plany', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData });
-});
-*/
+
+router.use('/plany', authController.checkToken, planyController.load);
+
+router.post('/completeGoal', authController.checkToken, planyController.finishGoal);
+
+
+
 router.use('/profile', function(req, res, next) {
     mySqlSelect.specificUser(req, function(result) {
         mySqlSelect.dogsOfUser(req, function(dresult) {
@@ -37,5 +39,6 @@ router.use('/profile', function(req, res, next) {
     })
 
 });
+
 
 module.exports = router;

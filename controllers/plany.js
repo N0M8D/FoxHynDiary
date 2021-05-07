@@ -3,8 +3,8 @@ const mySqlSelect = require('../mysql/select');
 const mySqlInsert = require('../mysql/insert');
 const mySqlUpdate = require('../mysql/update');
 
-exports.finishGoal = function(req, res) {
 
+exports.finishGoal = function(req, res) {
     mySqlUpdate.completeGoal(req, function() {
         return res.redirect('plany');
     })

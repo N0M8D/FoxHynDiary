@@ -177,6 +177,11 @@ input[type=submit]:hover {
 }
 */
 
+.fixed {
+    text-align: center;
+    width: 100%;
+}
+
 .Profile-div {
     padding-top: 15px;
     padding-left: 15px;

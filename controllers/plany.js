@@ -19,7 +19,8 @@ exports.load = function(req, res) {
                 message: req.flash('message'),
                 userData: req.userData,
                 smallPlans: sresult,
-                bigPlans: bresult
+                bigPlans: bresult,
+                did: req.body.did
             });
         })
     })

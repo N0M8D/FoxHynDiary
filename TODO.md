@@ -20,14 +20,14 @@
 - [x] Funkční Plány
     - [x] Krátkodobé plány
     - [x] Dlouhodobé plány
-- [ ] Tvorba a přiřazování aktivit
+- [x] Tvorba a přiřazování aktivit
 - [ ] Funkční Postupy
 - [ ] Funkční úspěchy
 - [ ] Sbírka postupů
 - [ ] Funkční deníky
 - [ ] Dynamická data
 - [ ] Tvorba úkolů
-- [ ] Cvičitel menu pro cvičitele
+- [x] Cvičitel menu pro cvičitele
     - [ ] Zadávání plánů cxvičitelem
     - [ ] Zadávání úkolů cxvičitelem
     - [ ] Sledování aktivit a záznamů

@@ -192,6 +192,7 @@ input[type=submit]:hover {
     padding-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 80px;
 }
 
 .profile-icon-user {
@@ -216,7 +217,7 @@ input[type=submit]:hover {
     -webkit-box-pack: center;
     justify-content: center;
     padding-top: 25%;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
 }
 
 .input-group {

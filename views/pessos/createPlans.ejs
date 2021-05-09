@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
     <%- include('../partials/head.ejs'); %>
@@ -72,7 +72,7 @@
                     </tr>
                     <% i++;})} %>
                         <td colspan="6">
-                            <button class="btn btn-primary text-center fixed">Přidat samostatný malý plán</button>
+                            <button class="btn btn-primary text-center fixed disabled">Přidat samostatný malý plán</button>
                         </td>
             </tbody>
         </table>
@@ -162,12 +162,38 @@
                     </tr>
                     <% i++;})} %>
                         <td colspan="6">
-                            <button class="btn btn-primary text-center fixed">Přidat velký plán</button>
+                            <button type="button" class="btn btn-primary text-center fixed" data-toggle="modal" data-target="#addBPmodal">Přidat velký plán</button>
                         </td>
             </tbody>
         </table>
     </div>
 
+    <!-- The Modal -->
+    <div class="modal" id="addBPmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Založení velkého plánu</h4>
+                    <button type="button" class="btn close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/admin/cvicitel/addBP" method="post">
+                        <input type="text" hidden id="did" name="did" value="<%=did%>" />
+                        <input type="text" id="name" name="name" value="" />
+                        <input type="text" id="dateend" name="dateend" value="" />
+                        <button type="submit" class="btn btn-primary">Založit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
 
 
 
@@ -178,7 +204,6 @@
         <%- include('../partials/footer.ejs'); %>
     </footer>
     <!-- Footer -->
-
 </body>
 
 </html>

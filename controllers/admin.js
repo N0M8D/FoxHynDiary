@@ -6,6 +6,22 @@ const mySqlDelete = require('../mysql/remove');
 const authController = require('../controllers/auth');
 
 
+exports.addLonelySP = function(req, res) {
+    //nelze
+}
+
+exports.addBP = function(req, res) {
+    mySqlInsert.bigPlan(req, function() {
+        return res.redirect('pessos/createPlans')
+    })
+
+}
+
+exports.addSPinBP = function(req, res) {
+
+}
+
+
 exports.createPlansLoad = function(req, res) {
     mySqlSelect.bigPlansForUser(req, function(bresult) {
         mySqlSelect.smallPlansForUser(req,
@@ -16,7 +32,8 @@ exports.createPlansLoad = function(req, res) {
                     message: req.flash('message'),
                     userData: req.userData,
                     smallPlans: sresult,
-                    bigPlans: bresult
+                    bigPlans: bresult,
+                    did: req.body.did
                 });
             })
     })

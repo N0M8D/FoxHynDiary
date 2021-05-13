@@ -6,6 +6,19 @@ const mySqlDelete = require('../mysql/remove');
 const authController = require('../controllers/auth');
 
 
+exports.removeBP = function(req, res) {
+    mySqlDelete.removeBigPlan(req, function() {
+        return res.redirect('pessos/createPlans');
+    })
+}
+
+exports.removeSP = function(req, res) {
+    mySqlDelete.removeSmallPlan(req, function() {
+        return res.redirect('pessos/createPlans');
+    })
+}
+
+
 exports.addLonelySP = function(req, res) {
     //nelze
 }
@@ -18,7 +31,9 @@ exports.addBP = function(req, res) {
 }
 
 exports.addSPinBP = function(req, res) {
-
+    mySqlInsert.spForBP(req, function() {
+        return res.redirect('pessos/createPlans')
+    })
 }
 
 

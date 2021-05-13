@@ -1,6 +1,19 @@
 const db = require("../database");
 
 
+exports.addPartToBigPlan = function(bid, next) {
+    db.query('UPDATE plans_big SET status = status + 1 WHERE id = ?', {
+        bid
+    }, async(error) => {
+        if (error) {
+            console.log(error);
+            next();
+        } else {
+            next();
+        }
+    });
+}
+
 exports.setAllowedActivity = function(req, allowedActivity, next) {
     const { dogIDsent } = req.body;
     db.query('UPDATE dogs SET ? WHERE id = ?', [{ allowedActivity },

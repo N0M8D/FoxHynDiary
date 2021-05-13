@@ -1,9 +1,33 @@
 const db = require("../database");
+const mySqlUpdate = require('../mysql/update');
 
 
+
+
+exports.spForBP = function(req, next) {
+    const { bid, name, dateend } = req.body;
+    db.query('INSERT INTO plans_small SET ?', {
+        bid,
+        name,
+        dateend,
+        status: 0
+    }, async(error) => {
+        if (error) {
+            console.log(error);
+            req.flash('error', 'Chyba přidávání malého plánu');
+            next();
+        } else {
+            mySqlUpdate.addPartToBigPlan(bid, function() {
+                req.flash('message', 'Malý plán založen!');
+                next();
+            })
+
+        }
+    });
+}
 
 exports.bigPlan = function(req, next) {
-    const { did, name, dateend, } = req.body;
+    const { did, name, dateend } = req.body;
     db.query('INSERT INTO plans_big SET ? ', {
         did,
         name,

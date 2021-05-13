@@ -28,7 +28,7 @@
 - [ ] Dynamická data
 - [ ] Tvorba úkolů
 - [x] Cvičitel menu pro cvičitele
-    - [ ] Zadávání plánů cxvičitelem
+    - [x] Zadávání plánů cxvičitelem
     - [ ] Zadávání úkolů cxvičitelem
     - [ ] Sledování aktivit a záznamů
 

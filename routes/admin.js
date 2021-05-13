@@ -2,12 +2,19 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth');
 const adminController = require('../controllers/admin');
+const { route } = require('./pessos');
 
 /* GET home page. */
 
 router.use('/menu', authController.checkToken, adminController.loadMenu);
 
 router.post('/cvicitel/addBP', authController.checkToken, adminController.addBP);
+
+router.post('/cvicitel/deleteBP', authController.checkToken, adminController.removeBP);
+
+router.post('/cvicitel/deleteSP', authController.checkToken, adminController.removeSP);
+
+router.post('/cvicitel/addSPforBP', authController.checkToken, adminController.addSPinBP);
 
 router.post('/cvicitel/saveactivity', adminController.saveActivity);
 

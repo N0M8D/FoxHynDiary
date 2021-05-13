@@ -62,9 +62,9 @@
                                                         <%} else { %> <button class="btn btn-success fixed">Splněno</button>
                                                             <%}%>
                                                 </form>
-                                                <form action="/pessos/deleteSP" method="post">
+                                                <form action="/admin/cvicitel/deleteSP" method="post">
                                                     <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
-                                                    <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                                    <input hidden type="text" id="id" name="id" value="<%=data.id %>"></input>
                                                     <button class="btn btn-danger btn-sm fixed">Smazat plán</button>
                                                 </form>
                                             </td>
@@ -147,16 +147,40 @@
                             </td>
                             <td>
                                 <div class="fixed">
-                                    <form action="/pessos/deleteBP" method="post">
+                                    <form action="/admin/cvicitel/deleteBP" method="post">
                                         <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
-                                        <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
+                                        <input hidden type="text" id="id" name="id" value="<%=data.id %>"></input>
                                         <button class="btn btn-danger btn-sm fixed">Smazat plán</button>
                                     </form>
-                                    <form action="/pessos/addSPforBP" method="post">
-                                        <input hidden type="text" id="bid" name="bid" value="<%=data.bid %>"></input>
-                                        <input hidden type="text" id="gid" name="gid" value="<%=data.id %>"></input>
-                                        <button class="btn btn-success btn-sm fixed mt-1">Přidat malý plán</button>
-                                    </form>
+                                    <button class="btn btn-success btn-sm fixed mt-1" data-toggle="modal" data-target="#addSPmodal-<%=data.id %>">Přidat malý plán</button>
+                                    <!-- The Modal -->
+                                    <div class="modal" id="addSPmodal-<%=data.id %>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Založení malého plánu</h4>
+                                                    <button type="button" class="btn close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form action="/admin/cvicitel/addSPforBP" method="post">
+                                                        <input hidden type="text" id="bid" name="bid" value="<%=data.id %>"></input>
+                                                        <p>Název cíle:</p>
+                                                        <input type="text" id="name" name="name" value="" />
+                                                        <p>Splnit do:</p>
+                                                        <input type="text" id="dateend" name="dateend" value="" />
+                                                        <button type="submit" class="btn btn-primary">Založit</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- The Modal -->
                                 </div>
                             </td>
                     </tr>
@@ -181,7 +205,9 @@
                 <div class="modal-body">
                     <form action="/admin/cvicitel/addBP" method="post">
                         <input type="text" hidden id="did" name="did" value="<%=did%>" />
+                        <p>Název cíle:</p>
                         <input type="text" id="name" name="name" value="" />
+                        <p>Splnit do:</p>
                         <input type="text" id="dateend" name="dateend" value="" />
                         <button type="submit" class="btn btn-primary">Založit</button>
                     </form>

@@ -37,47 +37,53 @@
     </div>
 
     <div class="UniPage-div">
-        <form action="">
+        <form action="/pessos/denik/addDenniZaznam" method="post">
 
             <div class="input-group">
                 <span class="input-group-text">Datum</span>
-                <input type="text " aria-label="First name" class="form-control">
-                <label class="input-group-text" for="inputGroupSelect01">Druh aktivity:</label>
-                <select class="form-select" id="inputGroupSelect01">
+                <input type="text " name="date" id="date" class="form-control" />
+                <label class="input-group-text" for="activity">Druh aktivity:</label>
+                <select name="activity" class="form-select" id="activity">
                   <option selected>Vyberte...</option>
                   <%
                   if(allowedActivities.length != 0 && typeof allowedActivities != "undefined"){
                       var i = 1;
                     allowedActivities.forEach(function(data){
                   %>
-                  <option value="<%= i %>"><%=data.name%></option>
+                  <option value="<%= data.id %>"><%=data.name%></option>
                   <%i++})} %>
                 </select>
+
+                <input hidden name="did" id="did" value="<%= did %>" />
+
             </div>
 
             <div class="input-group ">
-                <label class="input-group-text" for="inputGroupSelect01">Plán:</label>
-                <select class="form-select" id="inputGroupSelect01">
-                  <option selected>Vyberte...</option>
-                  <option value="1">Sedni a zůstaň</option>
-                  <option value="2">Poslušnost venku</option>
-                  <option value="3">Slalom</option>
-                  <option value="3">Vyhrát CAC na výstavě</option>
+                <label class="input-group-text" for="plan">Plán:</label>
+                <select class="form-select" id="plan" name="plan">
+                  <option value="0" selected>Vyberte...</option>
+                  <%
+                  if(smallPlans.length != 0 && typeof smallPlans != "undefined"){
+                      var i = 1;
+                      smallPlans.forEach(function(data){
+                  %>
+                  <option value="<%= data.id %>"><%=data.name%></option>
+                  <%i++})} %>
                   </select>
 
-                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off">
+                <input value="splneno" type="radio" class="btn-check" name="optionsoutlined" id="success-outlined" autocomplete="off" />
                 <label class="btn btn-outline-success" for="success-outlined">Splněno</label>
 
-                <input type="radio" class="btn-check" name="options-outlined" id="primary-outlined" autocomplete="off">
+                <input value="postup" type="radio" class="btn-check" name="optionsoutlined" id="primary-outlined" autocomplete="off" />
                 <label class="btn btn-outline-primary" for="primary-outlined">Postup</label>
 
-                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+                <input value="nesplneno" type="radio" class="btn-check" name="optionsoutlined" id="danger-outlined" autocomplete="off" />
                 <label class="btn btn-outline-danger" for="danger-outlined">Nesplněno</label>
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Delší text, poznámka ..</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="poznamka" class="form-label">Delší text, poznámka ..</label>
+                <textarea class="form-control" id="poznamka" name="poznamka" rows="3"></textarea>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">Uložit záznam</button>

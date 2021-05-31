@@ -10,6 +10,8 @@ var denikController = require('../controllers/denik');
 
 //router.use('/denik/tydenni', authController.checkToken, denikController.loadTydenniDashboard);
 
+router.use('/denik/addDenniZaznam', authController.checkToken, denikController.addDenniZaznam);
+
 router.use('/denik/zaznamy', authController.checkToken, denikController.loadZaznamyDashboard);
 
 router.use('/denik/chooseAdog', authController.checkToken, denikController.chooseAdog);

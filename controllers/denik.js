@@ -7,6 +7,13 @@ const mySqlUpdate = require('../mysql/update');
 const mySqlDelete = require('../mysql/remove');
 
 
+exports.addDenniZaznam = function(req, res) {
+    mySqlInsert.addDenniZaznam(req, function() {
+        res.redirect('chooseAdog');
+    })
+
+
+}
 
 exports.loadDenniDashboard = function(req, res) {
     const did = req.body.dog;
@@ -19,7 +26,10 @@ exports.loadDenniDashboard = function(req, res) {
         }
 
         mySqlSelect.dogsActivity(activities, function(allowedActivities) {
-            res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, allowedActivities });
+            req.body.did = did;
+            mySqlSelect.smallPlansForUser(req, function(smallPlans) {
+                res.render('pessos/denik/denni', { info: req.flash('info'), error: req.flash('error'), message: req.flash('message'), userData: req.userData, allowedActivities, smallPlans, did });
+            })
         })
 
     })

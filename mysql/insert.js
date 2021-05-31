@@ -2,6 +2,32 @@ const db = require("../database");
 const mySqlUpdate = require('../mysql/update');
 
 
+exports.addDenniZaznam = function(req, next) {
+    const { did, plan, activity, poznamka, date } = req.body;
+    const { status } = req.body.optionsoutlined
+
+    console.log('did: ' + did, 'plan: ' + plan, 'status: ' + req.body.optionsoutlined, 'poznamka: ' + poznamka, 'date: ' + date);
+
+    db.query("INSERT INTO zaznamy SET ?", {
+        did,
+        activity,
+        date,
+        plan,
+        status,
+        text: poznamka,
+        type: "denni"
+    }, async(error) => {
+        if (error) {
+            console.log(error);
+            req.flash('error', 'Chyba přidávání denní aktivity');
+            next();
+        } else {
+            req.flash('message', 'Denní aktivita uložena!');
+            next();
+        }
+    })
+
+}
 
 
 exports.spForBP = function(req, next) {
